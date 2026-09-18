@@ -15,11 +15,321 @@
 </head>
 
 <body>
-    <div id="app"></div>
 
-    <script
-        type="module"
-        src="../js/pages/wanted.js"
-    ></script>
+    <header class="site-header">
+        <div class="site-header__inner">
+
+            <a
+                class="site-header__brand"
+                href="../index.html"
+            >
+                Campus Marketplace
+            </a>
+
+            <nav
+                class="site-header__nav"
+                aria-label="Main navigation"
+            >
+                <a href="./marketplace.html">
+                    Marketplace
+                </a>
+
+                <a href="./wanted.html">
+                    Wanted
+                </a>
+
+                <a href="./create-listing.html">
+                    Sell
+                </a>
+
+                <a href="./profile.html">
+                    Profile
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main class="wanted-page">
+
+        <section class="wanted-intro">
+
+            <p class="home-kicker">
+                Wanted Board
+            </p>
+
+            <div class="wanted-heading">
+
+                <div>
+
+                    <h1>
+                        Tell the campus what you need.
+                    </h1>
+
+                    <p>
+                        Browse requests from students looking
+                        for items across campus.
+                    </p>
+
+                </div>
+
+                <a
+                    class="button button--primary"
+                    href="./create-wanted.html"
+                >
+                    Post a Wanted Request
+                </a>
+
+            </div>
+
+        </section>
+
+        <section
+            class="wanted-section"
+            aria-labelledby="wanted-section-title"
+        >
+
+            <div class="wanted-section__header">
+
+                <div class="section-heading">
+
+                    <h2 id="wanted-section-title">
+                        Open requests
+                    </h2>
+
+                    <p>
+                        Current requests from students on campus.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="wanted-grid">
+
+                <!-- Wanted request 1 -->
+
+                <article class="wanted-card">
+
+                    <a
+                        class="wanted-card__link"
+                        href="./wanted-monitor.html"
+                    >
+
+                        <div class="wanted-card__category">
+                            Electronics
+                        </div>
+
+                        <div class="wanted-card__content">
+
+                            <h3 class="wanted-card__title">
+                                Looking for a second-hand monitor
+                            </h3>
+
+                            <p class="wanted-card__description">
+                                Looking for a working monitor suitable
+                                for coding and coursework. 22-inch or
+                                larger preferred.
+                            </p>
+
+                            <div class="wanted-card__budget">
+
+                                <span>
+                                    Budget
+                                </span>
+
+                                <strong>
+                                    ₹3,000 – ₹6,000
+                                </strong>
+
+                            </div>
+
+                            <div class="wanted-card__footer">
+
+                                <span>
+                                    Needed by 25 Sep 2026
+                                </span>
+
+                                <span>
+                                    Library Entrance
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+                <!-- Wanted request 2 -->
+
+                <article class="wanted-card">
+
+                    <a
+                        class="wanted-card__link"
+                        href="./wanted-textbook.html"
+                    >
+
+                        <div class="wanted-card__category">
+                            Books
+                        </div>
+
+                        <div class="wanted-card__content">
+
+                            <h3 class="wanted-card__title">
+                                Need engineering mathematics textbook
+                            </h3>
+
+                            <p class="wanted-card__description">
+                                Looking for a used engineering mathematics
+                                textbook for the current semester.
+                            </p>
+
+                            <div class="wanted-card__budget">
+
+                                <span>
+                                    Budget
+                                </span>
+
+                                <strong>
+                                    ₹200 – ₹500
+                                </strong>
+
+                            </div>
+
+                            <div class="wanted-card__footer">
+
+                                <span>
+                                    Needed by 22 Sep 2026
+                                </span>
+
+                                <span>
+                                    Academic Block Lobby
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+                <!-- Wanted request 3 -->
+
+                <article class="wanted-card">
+
+                    <a
+                        class="wanted-card__link"
+                        href="./wanted-chair.html"
+                    >
+
+                        <div class="wanted-card__category">
+                            Furniture
+                        </div>
+
+                        <div class="wanted-card__content">
+
+                            <h3 class="wanted-card__title">
+                                Need a study chair
+                            </h3>
+
+                            <p class="wanted-card__description">
+                                Looking for a comfortable study chair
+                                suitable for long study sessions in
+                                a hostel room.
+                            </p>
+
+                            <div class="wanted-card__budget">
+
+                                <span>
+                                    Budget
+                                </span>
+
+                                <strong>
+                                    ₹500 – ₹1,500
+                                </strong>
+
+                            </div>
+
+                            <div class="wanted-card__footer">
+
+                                <span>
+                                    Needed by 30 Sep 2026
+                                </span>
+
+                                <span>
+                                    Hostel Common Area
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+                <!-- Wanted request 4 -->
+
+                <article class="wanted-card">
+
+                    <a
+                        class="wanted-card__link"
+                        href="./wanted-bicycle.html"
+                    >
+
+                        <div class="wanted-card__category">
+                            Sports
+                        </div>
+
+                        <div class="wanted-card__content">
+
+                            <h3 class="wanted-card__title">
+                                Looking to rent a bicycle
+                            </h3>
+
+                            <p class="wanted-card__description">
+                                Need a bicycle for short-distance campus
+                                travel for about one week.
+                            </p>
+
+                            <div class="wanted-card__budget">
+
+                                <span>
+                                    Budget
+                                </span>
+
+                                <strong>
+                                    ₹200 – ₹500
+                                </strong>
+
+                            </div>
+
+                            <div class="wanted-card__footer">
+
+                                <span>
+                                    Needed by 24 Sep 2026
+                                </span>
+
+                                <span>
+                                    Student Activity Centre
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
 </body>
 </html>
