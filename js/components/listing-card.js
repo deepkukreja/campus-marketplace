@@ -4,28 +4,34 @@ export function createListingCard(listing) {
     article.className = "listing-card";
 
     article.innerHTML = `
-        <div class="listing-card__image">
-            <span>${listing.category}</span>
-        </div>
-
-        <div class="listing-card__content">
-            <p class="listing-card__type">
-                ${formatTransactionType(listing.transactionType)}
-            </p>
-
-            <h3 class="listing-card__title">
-                ${listing.title}
-            </h3>
-
-            <p class="listing-card__condition">
-                ${listing.condition}
-            </p>
-
-            <div class="listing-card__footer">
-                <strong>₹${listing.price}</strong>
-                <span>${listing.location}</span>
+        <a
+            class="listing-card__link"
+            href="./listing.html?id=${encodeURIComponent(listing.id)}"
+            aria-label="View ${listing.title}"
+        >
+            <div class="listing-card__image">
+                <span>${listing.category}</span>
             </div>
-        </div>
+
+            <div class="listing-card__content">
+                <p class="listing-card__type">
+                    ${formatTransactionType(listing.transactionType)}
+                </p>
+
+                <h3 class="listing-card__title">
+                    ${listing.title}
+                </h3>
+
+                <p class="listing-card__condition">
+                    ${listing.condition}
+                </p>
+
+                <div class="listing-card__footer">
+                    <strong>₹${listing.price}</strong>
+                    <span>${listing.location}</span>
+                </div>
+            </div>
+        </a>
     `;
 
     return article;

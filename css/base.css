@@ -106,7 +106,10 @@ p {
     border: 1px solid var(--color-text);
 
     text-decoration: none;
+    font: inherit;
     font-weight: 600;
+
+    cursor: pointer;
 }
 
 .button--primary {
@@ -124,7 +127,8 @@ p {
 }
 
 .button:focus-visible,
-.category-item:focus-visible {
+.category-item:focus-visible,
+.clear-filters:focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 3px;
 }
@@ -337,11 +341,6 @@ p {
     color: var(--color-text);
 }
 
-.clear-filters:focus-visible {
-    outline: 2px solid currentColor;
-    outline-offset: 3px;
-}
-
 /* Listing grid */
 
 .listing-grid {
@@ -371,6 +370,18 @@ p {
 
     background: var(--color-surface);
     border: 1px solid var(--color-border);
+}
+
+.listing-card__link {
+    display: block;
+
+    color: inherit;
+    text-decoration: none;
+}
+
+.listing-card__link:focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: 3px;
 }
 
 .listing-card__image {
@@ -435,6 +446,136 @@ p {
     text-align: right;
 }
 
+/* Listing detail page */
+
+.listing-page {
+    padding-block: 2.5rem 4rem;
+}
+
+.listing-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    margin-bottom: 2rem;
+
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.listing-breadcrumb a {
+    color: var(--color-text);
+}
+
+.listing-detail {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 3rem;
+}
+
+.listing-detail__image {
+    aspect-ratio: 4 / 3;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eeeeea;
+    border: 1px solid var(--color-border);
+}
+
+.listing-detail__image span {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.listing-detail__content h1 {
+    margin: 0;
+
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+}
+
+.listing-detail__price {
+    margin-block: 1rem 2rem;
+
+    color: var(--color-text);
+
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.listing-detail__facts {
+    display: grid;
+    gap: 0;
+
+    border-block: 1px solid var(--color-border);
+}
+
+.listing-detail__facts div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    padding-block: 0.85rem;
+
+    border-bottom: 1px solid var(--color-border);
+}
+
+.listing-detail__facts div:last-child {
+    border-bottom: 0;
+}
+
+.listing-detail__facts span {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.listing-detail__facts strong {
+    text-align: right;
+}
+
+.listing-detail__description {
+    padding-block: 2rem;
+}
+
+.listing-detail__description h2 {
+    margin: 0 0 0.75rem;
+
+    font-size: 1.2rem;
+}
+
+.listing-detail__description p {
+    margin: 0;
+}
+
+.listing-detail__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.listing-detail__note {
+    margin-top: 1rem;
+
+    font-size: 0.82rem;
+}
+
+.listing-not-found {
+    max-width: 650px;
+    padding-block: 3rem;
+}
+
+.listing-not-found h1 {
+    margin: 0;
+}
+
+.listing-not-found p:not(.home-kicker) {
+    margin-block: 1rem 2rem;
+}
+
 /* Responsive layout */
 
 @media (max-width: 950px) {
@@ -448,6 +589,11 @@ p {
 
     .listing-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .listing-detail {
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
 }
 
@@ -476,7 +622,8 @@ p {
     }
 
     .home,
-    .marketplace-page {
+    .marketplace-page,
+    .listing-page {
         padding-block: 2rem 3rem;
     }
 
@@ -496,12 +643,27 @@ p {
         grid-template-columns: 1fr;
     }
 
-    .home-actions {
+    .home-actions,
+    .listing-detail__actions {
         align-items: stretch;
         flex-direction: column;
     }
 
     .button {
         width: 100%;
+    }
+
+    .listing-breadcrumb {
+        flex-wrap: wrap;
+    }
+
+    .listing-detail__facts div {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .listing-detail__facts strong {
+        text-align: left;
     }
 }
