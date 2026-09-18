@@ -4,6 +4,7 @@
     --color-text: #1f1f1f;
     --color-text-muted: #666666;
     --color-border: #dddddd;
+    --color-error: #a32626;
 
     --space-1: 0.5rem;
     --space-2: 1rem;
@@ -377,6 +378,7 @@ p {
 
     color: inherit;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .listing-card__link:focus-visible {
@@ -576,6 +578,124 @@ p {
     margin-block: 1rem 2rem;
 }
 
+/* Create listing */
+
+.create-listing-page {
+    padding-block: 2.5rem 4rem;
+}
+
+.create-listing-intro {
+    max-width: 720px;
+    padding-bottom: 2rem;
+}
+
+.create-listing-intro h1 {
+    margin: 0;
+
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+}
+
+.create-listing-intro p:last-child {
+    margin-bottom: 0;
+}
+
+.listing-form-section {
+    max-width: 760px;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.listing-form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.form-field {
+    display: grid;
+    gap: 0.45rem;
+}
+
+.form-field label {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    width: 100%;
+
+    padding: 0.75rem;
+
+    color: var(--color-text);
+    background: var(--color-surface);
+
+    border: 1px solid var(--color-border);
+
+    font: inherit;
+}
+
+.form-field textarea {
+    min-height: 9rem;
+    resize: vertical;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    outline: 2px solid var(--color-text);
+    outline-offset: 1px;
+}
+
+.form-field input[aria-invalid="true"],
+.form-field select[aria-invalid="true"],
+.form-field textarea[aria-invalid="true"] {
+    border-color: var(--color-error);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.field-help,
+.field-error {
+    margin: 0;
+
+    font-size: 0.82rem;
+}
+
+.field-error {
+    color: var(--color-error);
+}
+
+.form-notice {
+    padding: 1rem;
+
+    background: var(--color-surface);
+    border-block: 1px solid var(--color-border);
+}
+
+.form-notice p {
+    margin: 0.4rem 0 0;
+    font-size: 0.88rem;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+.form-status {
+    min-height: 1.5rem;
+    margin: 0;
+
+    font-size: 0.9rem;
+}
+
 /* Responsive layout */
 
 @media (max-width: 950px) {
@@ -607,6 +727,10 @@ p {
         align-items: flex-start;
         flex-direction: column;
     }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 600px) {
@@ -623,7 +747,8 @@ p {
 
     .home,
     .marketplace-page,
-    .listing-page {
+    .listing-page,
+    .create-listing-page {
         padding-block: 2rem 3rem;
     }
 
@@ -644,7 +769,8 @@ p {
     }
 
     .home-actions,
-    .listing-detail__actions {
+    .listing-detail__actions,
+    .form-actions {
         align-items: stretch;
         flex-direction: column;
     }

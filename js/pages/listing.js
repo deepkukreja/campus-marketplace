@@ -7,7 +7,10 @@ const header = createHeader("..");
 
 app.append(header);
 
-const params = new URLSearchParams(window.location.search);
+const params = new URLSearchParams(
+    window.location.search
+);
+
 const listingId = params.get("id");
 
 const listing = getListingById(listingId);
@@ -23,7 +26,8 @@ if (!listing) {
             <h1>Listing not found</h1>
 
             <p>
-                The listing you're looking for does not exist or is no longer available.
+                The listing you're looking for does not exist
+                or is no longer available.
             </p>
 
             <a
@@ -37,78 +41,228 @@ if (!listing) {
 
     app.append(main);
 } else {
-    main.innerHTML = `
-        <nav class="listing-breadcrumb" aria-label="Breadcrumb">
-            <a href="./marketplace.html">Marketplace</a>
-            <span>/</span>
-            <span>${listing.title}</span>
-        </nav>
+    const breadcrumb = document.createElement("nav");
 
-        <section class="listing-detail">
-            <div class="listing-detail__image">
-                <span>${listing.category}</span>
-            </div>
+    breadcrumb.className = "listing-breadcrumb";
+    breadcrumb.setAttribute(
+        "aria-label",
+        "Breadcrumb"
+    );
 
-            <div class="listing-detail__content">
-                <p class="home-kicker">
-                    ${formatTransactionType(listing.transactionType)}
-                </p>
+    const marketplaceLink =
+        document.createElement("a");
 
-                <h1>${listing.title}</h1>
+    marketplaceLink.href = "./marketplace.html";
+    marketplaceLink.textContent = "Marketplace";
 
-                <p class="listing-detail__price">
-                    ₹${listing.price}
-                </p>
+    const separator =
+        document.createElement("span");
 
-                <div class="listing-detail__facts">
-                    <div>
-                        <span>Category</span>
-                        <strong>${listing.category}</strong>
-                    </div>
+    separator.textContent = "/";
 
-                    <div>
-                        <span>Condition</span>
-                        <strong>${listing.condition}</strong>
-                    </div>
+    const current =
+        document.createElement("span");
 
-                    <div>
-                        <span>Handover location</span>
-                        <strong>${listing.location}</strong>
-                    </div>
-                </div>
+    current.textContent = listing.title;
 
-                <div class="listing-detail__description">
-                    <h2>Description</h2>
+    breadcrumb.append(
+        marketplaceLink,
+        separator,
+        current
+    );
 
-                    <p>
-                        ${listing.description}
-                    </p>
-                </div>
+    const detailSection =
+        document.createElement("section");
 
-                <div class="listing-detail__actions">
-                    <button
-                        class="button button--primary"
-                        type="button"
-                    >
-                        Contact seller
-                    </button>
+    detailSection.className = "listing-detail";
 
-                    <button
-                        class="button button--secondary"
-                        type="button"
-                    >
-                        Make an offer
-                    </button>
-                </div>
+    const image =
+        document.createElement("div");
 
-                <p class="listing-detail__note">
-                    Messaging and offers are currently a frontend prototype.
-                </p>
-            </div>
-        </section>
-    `;
+    image.className = "listing-detail__image";
+
+    const imageLabel =
+        document.createElement("span");
+
+    imageLabel.textContent =
+        listing.category;
+
+    image.append(imageLabel);
+
+    const content =
+        document.createElement("div");
+
+    content.className =
+        "listing-detail__content";
+
+    const type =
+        document.createElement("p");
+
+    type.className = "home-kicker";
+    type.textContent =
+        formatTransactionType(
+            listing.transactionType
+        );
+
+    const title =
+        document.createElement("h1");
+
+    title.textContent = listing.title;
+
+    const price =
+        document.createElement("p");
+
+    price.className =
+        "listing-detail__price";
+
+    price.textContent =
+        `₹${listing.price}`;
+
+    const facts =
+        document.createElement("div");
+
+    facts.className =
+        "listing-detail__facts";
+
+    addFact(
+        facts,
+        "Category",
+        listing.category
+    );
+
+    addFact(
+        facts,
+        "Condition",
+        listing.condition
+    );
+
+    addFact(
+        facts,
+        "Handover location",
+        listing.location
+    );
+
+    const description =
+        document.createElement("div");
+
+    description.className =
+        "listing-detail__description";
+
+    const descriptionHeading =
+        document.createElement("h2");
+
+    descriptionHeading.textContent =
+        "Description";
+
+    const descriptionText =
+        document.createElement("p");
+
+    descriptionText.textContent =
+        listing.description;
+
+    description.append(
+        descriptionHeading,
+        descriptionText
+    );
+
+    const actions =
+        document.createElement("div");
+
+    actions.className =
+        "listing-detail__actions";
+
+    const contactButton =
+        document.createElement("button");
+
+    contactButton.className =
+        "button button--primary";
+
+    contactButton.type = "button";
+    contactButton.textContent =
+        "Contact seller";
+
+    const offerButton =
+        document.createElement("button");
+
+    offerButton.className =
+        "button button--secondary";
+
+    offerButton.type = "button";
+    offerButton.textContent =
+        "Make an offer";
+
+    const editLink =
+        document.createElement("a");
+
+    editLink.className =
+        "button button--secondary";
+
+    editLink.href =
+        `./edit-listing.html?id=${encodeURIComponent(
+            listing.id
+        )}`;
+
+    editLink.textContent =
+        "Edit Listing";
+
+    actions.append(
+        contactButton,
+        offerButton,
+        editLink
+    );
+
+    const note =
+        document.createElement("p");
+
+    note.className =
+        "listing-detail__note";
+
+    note.textContent =
+        "Messaging, offers, and authorization are currently frontend prototypes.";
+
+    content.append(
+        type,
+        title,
+        price,
+        facts,
+        description,
+        actions,
+        note
+    );
+
+    detailSection.append(
+        image,
+        content
+    );
+
+    main.append(
+        breadcrumb,
+        detailSection
+    );
 
     app.append(main);
+}
+
+function addFact(container, label, value) {
+    const row =
+        document.createElement("div");
+
+    const labelElement =
+        document.createElement("span");
+
+    labelElement.textContent = label;
+
+    const valueElement =
+        document.createElement("strong");
+
+    valueElement.textContent = value;
+
+    row.append(
+        labelElement,
+        valueElement
+    );
+
+    container.append(row);
 }
 
 function formatTransactionType(transactionType) {

@@ -1,38 +1,111 @@
 export function createListingCard(listing) {
-    const article = document.createElement("article");
+    const article =
+        document.createElement("article");
 
-    article.className = "listing-card";
+    article.className =
+        "listing-card";
 
-    article.innerHTML = `
-        <a
-            class="listing-card__link"
-            href="./listing.html?id=${encodeURIComponent(listing.id)}"
-            aria-label="View ${listing.title}"
-        >
-            <div class="listing-card__image">
-                <span>${listing.category}</span>
-            </div>
+    const link =
+        document.createElement("a");
 
-            <div class="listing-card__content">
-                <p class="listing-card__type">
-                    ${formatTransactionType(listing.transactionType)}
-                </p>
+    link.className =
+        "listing-card__link";
 
-                <h3 class="listing-card__title">
-                    ${listing.title}
-                </h3>
+    link.href =
+        `./listing.html?id=${encodeURIComponent(
+            listing.id
+        )}`;
 
-                <p class="listing-card__condition">
-                    ${listing.condition}
-                </p>
+    link.setAttribute(
+        "aria-label",
+        `View ${listing.title}`
+    );
 
-                <div class="listing-card__footer">
-                    <strong>₹${listing.price}</strong>
-                    <span>${listing.location}</span>
-                </div>
-            </div>
-        </a>
-    `;
+    const image =
+        document.createElement("div");
+
+    image.className =
+        "listing-card__image";
+
+    const imageLabel =
+        document.createElement("span");
+
+    imageLabel.textContent =
+        listing.category;
+
+    image.append(imageLabel);
+
+    const content =
+        document.createElement("div");
+
+    content.className =
+        "listing-card__content";
+
+    const type =
+        document.createElement("p");
+
+    type.className =
+        "listing-card__type";
+
+    type.textContent =
+        formatTransactionType(
+            listing.transactionType
+        );
+
+    const title =
+        document.createElement("h3");
+
+    title.className =
+        "listing-card__title";
+
+    title.textContent =
+        listing.title;
+
+    const condition =
+        document.createElement("p");
+
+    condition.className =
+        "listing-card__condition";
+
+    condition.textContent =
+        listing.condition;
+
+    const footer =
+        document.createElement("div");
+
+    footer.className =
+        "listing-card__footer";
+
+    const price =
+        document.createElement("strong");
+
+    price.textContent =
+        `₹${listing.price}`;
+
+    const location =
+        document.createElement("span");
+
+    location.textContent =
+        listing.location;
+
+    footer.append(
+        price,
+        location
+    );
+
+    content.append(
+        type,
+        title,
+        condition,
+        footer
+    );
+
+    link.append(
+        image,
+        content
+    );
+
+    article.append(link);
 
     return article;
 }
