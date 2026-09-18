@@ -10,6 +10,7 @@ export const listings = [
         location: "Library Entrance",
         description:
             "Used scientific calculator in good working condition. Suitable for engineering and science students.",
+        createdAt: "2026-09-17T10:00:00",
         image: null
     },
     {
@@ -23,6 +24,7 @@ export const listings = [
         location: "Hostel Common Area",
         description:
             "Compact study table suitable for a hostel room. Minor signs of use.",
+        createdAt: "2026-09-16T15:30:00",
         image: null
     },
     {
@@ -36,6 +38,7 @@ export const listings = [
         location: "Academic Block Lobby",
         description:
             "Collection of engineering textbooks from previous semester. Books are well maintained.",
+        createdAt: "2026-09-15T11:15:00",
         image: null
     },
     {
@@ -49,6 +52,7 @@ export const listings = [
         location: "Student Activity Centre",
         description:
             "Campus-use bicycle available for short-term rental.",
+        createdAt: "2026-09-14T09:45:00",
         image: null
     }
 ];
