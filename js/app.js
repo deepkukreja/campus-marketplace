@@ -3,7 +3,7 @@ import { renderHome } from "./pages/home.js";
 
 const app = document.querySelector("#app");
 
-const header = createHeader();
+const header = createHeader(".");
 
 app.append(header);
 
