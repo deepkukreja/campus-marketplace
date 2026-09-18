@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Post a Wanted Request | Campus Marketplace</title>
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/wanted.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="site-header__inner">
+
+            <a
+                class="site-header__brand"
+                href="../index.html"
+            >
+                Campus Marketplace
+            </a>
+
+            <nav
+                class="site-header__nav"
+                aria-label="Main navigation"
+            >
+                <a href="./marketplace.html">
+                    Marketplace
+                </a>
+
+                <a href="./wanted.html">
+                    Wanted
+                </a>
+
+                <a href="./create-listing.html">
+                    Sell
+                </a>
+
+                <a href="./profile.html">
+                    Profile
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main class="create-wanted-page">
+
+        <section class="create-wanted-intro">
+
+            <p class="home-kicker">
+                Wanted Board
+            </p>
+
+            <h1>
+                Post a wanted request
+            </h1>
+
+            <p>
+                Tell other students what you are looking for,
+                your budget, and when you need it.
+            </p>
+
+        </section>
+
+        <section class="wanted-form-section">
+
+            <form
+                class="wanted-form"
+                action="#"
+                method="post"
+            >
+
+                <div class="form-field">
+
+                    <label for="wanted-title">
+                        What are you looking for?
+                    </label>
+
+                    <input
+                        id="wanted-title"
+                        name="wanted-title"
+                        type="text"
+                        placeholder="e.g. Looking for a second-hand monitor"
+                        maxlength="100"
+                        required
+                    >
+
+                    <p class="field-help">
+                        Use a short description of the item you need.
+                    </p>
+
+                </div>
+
+                <div class="form-field">
+
+                    <label for="wanted-category">
+                        Category
+                    </label>
+
+                    <select
+                        id="wanted-category"
+                        name="wanted-category"
+                        required
+                    >
+
+                        <option value="">
+                            Select category
+                        </option>
+
+                        <option value="academic">
+                            Academic
+                        </option>
+
+                        <option value="books">
+                            Books
+                        </option>
+
+                        <option value="electronics">
+                            Electronics
+                        </option>
+
+                        <option value="furniture">
+                            Furniture
+                        </option>
+
+                        <option value="hostel">
+                            Hostel
+                        </option>
+
+                        <option value="sports">
+                            Sports
+                        </option>
+
+                        <option value="clothing">
+                            Clothing
+                        </option>
+
+                        <option value="other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-field">
+
+                        <label for="minimum-budget">
+                            Minimum budget (₹)
+                        </label>
+
+                        <input
+                            id="minimum-budget"
+                            name="minimum-budget"
+                            type="number"
+                            min="0"
+                            step="1"
+                            placeholder="e.g. 300"
+                        >
+
+                    </div>
+
+                    <div class="form-field">
+
+                        <label for="maximum-budget">
+                            Maximum budget (₹)
+                        </label>
+
+                        <input
+                            id="maximum-budget"
+                            name="maximum-budget"
+                            type="number"
+                            min="0"
+                            step="1"
+                            placeholder="e.g. 6000"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="form-field">
+
+                    <label for="deadline">
+                        When do you need it?
+                    </label>
+
+                    <input
+                        id="deadline"
+                        name="deadline"
+                        type="date"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-field">
+
+                    <label for="wanted-location">
+                        Preferred handover location
+                    </label>
+
+                    <select
+                        id="wanted-location"
+                        name="wanted-location"
+                        required
+                    >
+
+                        <option value="">
+                            Select location
+                        </option>
+
+                        <option value="library">
+                            Library Entrance
+                        </option>
+
+                        <option value="student-activity-centre">
+                            Student Activity Centre
+                        </option>
+
+                        <option value="cafeteria">
+                            Cafeteria Entrance
+                        </option>
+
+                        <option value="academic-block">
+                            Academic Block Lobby
+                        </option>
+
+                        <option value="security-desk">
+                            Security Desk
+                        </option>
+
+                        <option value="hostel-common-area">
+                            Hostel Common Area
+                        </option>
+
+                    </select>
+
+                    <p class="field-help">
+                        Use a shared campus location rather than
+                        a private address.
+                    </p>
+
+                </div>
+
+                <div class="form-field">
+
+                    <label for="wanted-description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="wanted-description"
+                        name="wanted-description"
+                        rows="7"
+                        maxlength="1000"
+                        placeholder="Describe what you need and any requirements or preferences."
+                        required
+                    ></textarea>
+
+                </div>
+
+                <div class="form-field">
+
+                    <label for="additional-notes">
+                        Additional notes
+                    </label>
+
+                    <textarea
+                        id="additional-notes"
+                        name="additional-notes"
+                        rows="5"
+                        maxlength="500"
+                        placeholder="For example: preferred model, size, edition, colour, or acceptable alternatives."
+                    ></textarea>
+
+                </div>
+
+                <div class="form-notice">
+
+                    <strong>
+                        Assignment prototype
+                    </strong>
+
+                    <p>
+                        This HTML/CSS version demonstrates the
+                        wanted-request interface. Publishing and
+                        storing the request would require JavaScript
+                        or a backend.
+                    </p>
+
+                </div>
+
+                <div class="form-actions">
+
+                    <a
+                        class="button button--secondary"
+                        href="./wanted.html"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        class="button button--primary"
+                        type="submit"
+                    >
+                        Post Wanted Request
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
