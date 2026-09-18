@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
@@ -13,11 +14,370 @@
 </head>
 
 <body>
-    <div id="app"></div>
 
-    <script
-        type="module"
-        src="../js/pages/create-listing.js"
-    ></script>
+    <header class="site-header">
+        <div class="site-header__inner">
+
+            <a
+                class="site-header__brand"
+                href="../index.html"
+            >
+                Campus Marketplace
+            </a>
+
+            <nav
+                class="site-header__nav"
+                aria-label="Main navigation"
+            >
+                <a href="./marketplace.html">
+                    Marketplace
+                </a>
+
+                <a href="./wanted.html">
+                    Wanted
+                </a>
+
+                <a href="./create-listing.html">
+                    Sell
+                </a>
+
+                <a href="./profile.html">
+                    Profile
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main class="create-listing-page">
+
+        <section class="create-listing-intro">
+
+            <p class="home-kicker">
+                Sell on campus
+            </p>
+
+            <h1>
+                Post an item
+            </h1>
+
+            <p>
+                Share something you no longer need with
+                other students on campus.
+            </p>
+
+        </section>
+
+        <section class="listing-form-section">
+
+            <form
+                class="listing-form"
+                action="#"
+                method="post"
+            >
+
+                <div class="form-field">
+
+                    <label for="item-title">
+                        Item title
+                    </label>
+
+                    <input
+                        id="item-title"
+                        name="item-title"
+                        type="text"
+                        placeholder="e.g. Casio scientific calculator"
+                        maxlength="100"
+                        required
+                    >
+
+                    <p class="field-help">
+                        Use a short, clear name for the item.
+                    </p>
+
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-field">
+
+                        <label for="category">
+                            Category
+                        </label>
+
+                        <select
+                            id="category"
+                            name="category"
+                            required
+                        >
+
+                            <option value="">
+                                Select category
+                            </option>
+
+                            <option value="academic">
+                                Academic
+                            </option>
+
+                            <option value="books">
+                                Books
+                            </option>
+
+                            <option value="electronics">
+                                Electronics
+                            </option>
+
+                            <option value="furniture">
+                                Furniture
+                            </option>
+
+                            <option value="hostel">
+                                Hostel
+                            </option>
+
+                            <option value="sports">
+                                Sports
+                            </option>
+
+                            <option value="clothing">
+                                Clothing
+                            </option>
+
+                            <option value="other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-field">
+
+                        <label for="transaction-type">
+                            Transaction type
+                        </label>
+
+                        <select
+                            id="transaction-type"
+                            name="transaction-type"
+                            required
+                        >
+
+                            <option value="">
+                                Select type
+                            </option>
+
+                            <option value="sell">
+                                Sell
+                            </option>
+
+                            <option value="rent">
+                                Rent
+                            </option>
+
+                            <option value="swap">
+                                Swap
+                            </option>
+
+                            <option value="free">
+                                Give away
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-field">
+
+                        <label for="price">
+                            Price (₹)
+                        </label>
+
+                        <input
+                            id="price"
+                            name="price"
+                            type="number"
+                            min="0"
+                            step="1"
+                            placeholder="e.g. 650"
+                        >
+
+                        <p class="field-help">
+                            Enter 0 if you are giving the item away.
+                        </p>
+
+                    </div>
+
+                    <div class="form-field">
+
+                        <label for="condition">
+                            Condition
+                        </label>
+
+                        <select
+                            id="condition"
+                            name="condition"
+                            required
+                        >
+
+                            <option value="">
+                                Select condition
+                            </option>
+
+                            <option value="new">
+                                New
+                            </option>
+
+                            <option value="like-new">
+                                Like New
+                            </option>
+
+                            <option value="good">
+                                Good
+                            </option>
+
+                            <option value="fair">
+                                Fair
+                            </option>
+
+                            <option value="needs-repair">
+                                Needs Repair
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="form-field">
+
+                    <label for="handover-location">
+                        Preferred handover location
+                    </label>
+
+                    <select
+                        id="handover-location"
+                        name="handover-location"
+                        required
+                    >
+
+                        <option value="">
+                            Select location
+                        </option>
+
+                        <option value="library">
+                            Library Entrance
+                        </option>
+
+                        <option value="student-activity-centre">
+                            Student Activity Centre
+                        </option>
+
+                        <option value="cafeteria">
+                            Cafeteria Entrance
+                        </option>
+
+                        <option value="academic-block">
+                            Academic Block Lobby
+                        </option>
+
+                        <option value="security-desk">
+                            Security Desk
+                        </option>
+
+                        <option value="hostel-common-area">
+                            Hostel Common Area
+                        </option>
+
+                    </select>
+
+                    <p class="field-help">
+                        Use a shared campus location rather than
+                        a private address.
+                    </p>
+
+                </div>
+
+                <div class="form-field">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="7"
+                        maxlength="1000"
+                        placeholder="Describe the item, its condition, and anything another student should know."
+                        required
+                    ></textarea>
+
+                </div>
+
+                <div class="form-field">
+
+                    <label for="image">
+                        Item image
+                    </label>
+
+                    <input
+                        id="image"
+                        name="image"
+                        type="file"
+                        accept="image/*"
+                    >
+
+                    <p class="field-help">
+                        An image helps other students understand
+                        the item.
+                    </p>
+
+                </div>
+
+                <div class="form-notice">
+
+                    <strong>
+                        Assignment prototype
+                    </strong>
+
+                    <p>
+                        This HTML/CSS version demonstrates the
+                        listing form interface. Saving and publishing
+                        the listing requires JavaScript or a backend,
+                        which are not included in this submission.
+                    </p>
+
+                </div>
+
+                <div class="form-actions">
+
+                    <a
+                        class="button button--secondary"
+                        href="./marketplace.html"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        class="button button--primary"
+                        type="submit"
+                    >
+                        Publish Listing
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
 </body>
 </html>
