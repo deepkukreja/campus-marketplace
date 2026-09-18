@@ -27,25 +27,20 @@ body {
     margin: 0;
 }
 
-header,
+/* Main page layout */
+
 main,
 footer {
     width: min(100% - 2rem, var(--content-width));
     margin-inline: auto;
 }
 
-header {
-    padding-block: var(--space-4);
-}
-
 main {
     min-height: 60vh;
 }
 
-section {
-    padding: var(--space-3);
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
+footer {
+    padding-block: var(--space-4);
 }
 
 p {
@@ -53,9 +48,7 @@ p {
     line-height: 1.6;
 }
 
-footer {
-    padding-block: var(--space-4);
-}
+/* Site header */
 
 .site-header {
     background: var(--color-surface);
@@ -64,7 +57,7 @@ footer {
 
 .site-header__inner {
     width: min(100% - 2rem, var(--content-width));
-    min-height: 4.5rem;
+    min-height: 4rem;
     margin-inline: auto;
 
     display: flex;
@@ -100,4 +93,117 @@ footer {
 .site-header__brand:focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 3px;
+}
+
+/* Homepage */
+
+.home {
+    width: min(100% - 2rem, var(--content-width));
+    margin-inline: auto;
+    padding-block: 2.5rem;
+}
+
+.home-intro {
+    max-width: 720px;
+    padding-block: 2rem 3rem;
+}
+
+.home-kicker {
+    margin: 0 0 var(--space-1);
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.home-intro h1 {
+    max-width: 650px;
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+}
+
+.home-description {
+    max-width: 620px;
+    margin-block: var(--space-3);
+    font-size: 1.05rem;
+}
+
+.home-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+/* Buttons */
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding-inline: 1.1rem;
+
+    border: 1px solid var(--color-text);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.button--primary {
+    color: #ffffff;
+    background: var(--color-text);
+}
+
+.button--secondary {
+    color: var(--color-text);
+    background: transparent;
+}
+
+.button:hover {
+    opacity: 0.85;
+}
+
+.button:focus-visible,
+.category-item:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
+/* Categories */
+
+.home-categories {
+    padding-block: 2rem 4rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.section-heading {
+    margin-bottom: var(--space-2);
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.section-heading p {
+    margin-top: var(--space-1);
+}
+
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.category-item {
+    padding: 0.8rem 1rem;
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    text-decoration: none;
+}
+
+.category-item:hover {
+    border-color: var(--color-text);
 }
