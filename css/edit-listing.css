@@ -1,0 +1,135 @@
+
+/* =====================================
+   EDIT LISTING - edit-listing.css
+===================================== */
+
+.edit-listing-page {
+    padding-block: 2.5rem 4rem;
+}
+
+.edit-listing-intro {
+    max-width: 720px;
+    padding-bottom: 2rem;
+}
+
+.edit-listing-intro h1 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+}
+
+.edit-listing-intro p:last-child {
+    margin-bottom: 0;
+}
+
+/* Edit form container */
+
+.edit-listing-section {
+    max-width: 760px;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.edit-listing-form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+/* Reuse the shared form field styling */
+
+.edit-listing-form .form-field {
+    display: grid;
+    gap: 0.45rem;
+}
+
+.edit-listing-form .form-field label {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.edit-listing-form .form-field input,
+.edit-listing-form .form-field select,
+.edit-listing-form .form-field textarea {
+    width: 100%;
+    min-width: 0;
+    padding: 0.75rem;
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    font: inherit;
+}
+
+.edit-listing-form .form-field textarea {
+    min-height: 9rem;
+    resize: vertical;
+}
+
+.edit-listing-form .form-field input:focus,
+.edit-listing-form .form-field select:focus,
+.edit-listing-form .form-field textarea:focus {
+    outline: 2px solid var(--color-text);
+    outline-offset: 1px;
+}
+
+/* Existing listing information */
+
+.edit-listing-preview {
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+}
+
+.edit-listing-preview h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1.1rem;
+}
+
+.edit-listing-preview p {
+    margin: 0.4rem 0 0;
+}
+
+.edit-listing-preview img {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    margin-top: 1rem;
+}
+
+/* Edit form buttons */
+
+.edit-listing-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+.edit-listing-status {
+    min-height: 1.5rem;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Responsive layout */
+
+@media (max-width: 700px) {
+    .edit-listing-form .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .edit-listing-page {
+        padding-block: 2rem 3rem;
+    }
+
+    .edit-listing-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .edit-listing-actions .button {
+        width: 100%;
+    }
+}
