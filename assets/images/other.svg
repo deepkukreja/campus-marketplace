@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-labelledby="title desc">
+<title id="title">Backpack and everyday accessories illustration</title><desc id="desc">A clean illustrated object on a soft gradient background.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffedd5"/><stop offset="1" stop-color="#fed7aa"/></linearGradient>
+  <linearGradient id="obj" x1="0" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e2e8f0"/></linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#0f172a" flood-opacity=".13"/></filter>
+</defs>
+<rect width="600" height="400" rx="30" fill="url(#bg)"/>
+<circle cx="500" cy="70" r="74" fill="#ffffff" opacity=".24"/><circle cx="90" cy="330" r="104" fill="#ffffff" opacity=".18"/>
+<ellipse cx="300" cy="333" rx="165" ry="19" fill="#0f172a" opacity=".09"/>
+
+<g filter="url(#shadow)"><path d="M216 142c0-29 23-52 52-52h64c29 0 52 23 52 52v23h-28v-21c0-14-10-24-24-24h-64c-14 0-24 10-24 24v21h-28z" fill="#475569"/><rect x="169" y="150" width="262" height="177" rx="28" fill="#2563eb"/><rect x="194" y="174" width="212" height="124" rx="18" fill="#3b82f6"/><path d="M257 184v-8c0-18 14-32 32-32s32 14 32 32v8" fill="none" stroke="#bfdbfe" stroke-width="8"/><rect x="280" y="215" width="40" height="10" rx="5" fill="#dbeafe"/><circle cx="300" cy="245" r="7" fill="#dbeafe"/></g>
+<path d="M454 98c-13-12-34-7-39 9-7 21 18 38 39 55 21-17 46-34 39-55-5-16-26-21-39-9z" fill="#fb7185" opacity=".9"/>
+
+</svg>

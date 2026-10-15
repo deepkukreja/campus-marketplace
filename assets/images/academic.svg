@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-labelledby="title desc">
+<title id="title">Academic supplies and calculator illustration</title><desc id="desc">A clean illustrated object on a soft gradient background.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ede9fe"/><stop offset="1" stop-color="#ddd6fe"/></linearGradient>
+  <linearGradient id="obj" x1="0" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e2e8f0"/></linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#0f172a" flood-opacity=".13"/></filter>
+</defs>
+<rect width="600" height="400" rx="30" fill="url(#bg)"/>
+<circle cx="500" cy="70" r="74" fill="#ffffff" opacity=".24"/><circle cx="90" cy="330" r="104" fill="#ffffff" opacity=".18"/>
+<ellipse cx="300" cy="333" rx="165" ry="19" fill="#0f172a" opacity=".09"/>
+
+<g filter="url(#shadow)"><rect x="144" y="84" width="205" height="246" rx="15" fill="#ffffff" transform="rotate(-5 144 84)"/><rect x="169" y="105" width="158" height="16" rx="5" fill="#c4b5fd" transform="rotate(-5 169 105)"/><path d="M165 146l156-14M168 174l156-14M171 202l156-14M174 230l156-14" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round"/>
+<rect x="326" y="138" width="145" height="172" rx="13" fill="#334155"/><rect x="340" y="152" width="117" height="43" rx="6" fill="#a7f3d0"/><text x="398" y="181" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="24" fill="#065f46">123</text>
+<g fill="#e2e8f0"><rect x="342" y="208" width="23" height="20" rx="4"/><rect x="374" y="208" width="23" height="20" rx="4"/><rect x="406" y="208" width="23" height="20" rx="4"/><rect x="438" y="208" width="17" height="20" rx="4"/><rect x="342" y="238" width="23" height="20" rx="4"/><rect x="374" y="238" width="23" height="20" rx="4"/><rect x="406" y="238" width="23" height="20" rx="4"/><rect x="438" y="238" width="17" height="20" rx="4"/><rect x="342" y="268" width="23" height="20" rx="4"/><rect x="374" y="268" width="23" height="20" rx="4"/><rect x="406" y="268" width="23" height="20" rx="4"/><rect x="438" y="268" width="17" height="20" rx="4"/></g></g>
+
+</svg>

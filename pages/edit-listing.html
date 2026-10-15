@@ -2,23 +2,491 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Edit Listing | Campus Marketplace</title>
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/edit-listing.css">
+    <style>
+        .edit-container {
+            max-width: 750px;
+            margin: 40px auto;
+            padding: 20px;
+        }
 
-    <link rel="stylesheet" href="../css/base.css">
+        .edit-header {
+            margin-bottom: 30px;
+        }
+
+        .edit-header h1 {
+            font-size: 30px;
+            color: #111827;
+            margin-bottom: 10px;
+        }
+
+        .edit-header p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .edit-form {
+            background: white;
+            padding: 30px;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: 2px solid #93c5fd;
+            border-color: #2563eb;
+        }
+
+        .form-group textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .form-help {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 7px;
+        }
+
+        .image-preview {
+            margin-top: 12px;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 250px;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+
+        .form-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .form-actions button,
+        .form-actions a {
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .save-button {
+            background: #2563eb;
+            color: white;
+        }
+
+        .cancel-button {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .message {
+            display: none;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .message.error {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .message.success {
+            display: block;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        @media (max-width: 600px) {
+            .edit-form {
+                padding: 20px;
+            }
+
+            .edit-header h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div id="app"></div>
 
-    <script
-        type="module"
-        src="../js/pages/edit-listing.js"
-    ></script>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="marketplace.html">Marketplace</a>
+            <a href="wanted.html">Wanted</a>
+            <a href="create-listing.html">Sell an Item</a>
+            <a href="create-wanted.html">Request an Item</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+    </header>
+
+    <main class="edit-container">
+
+        <div class="edit-header">
+            <h1>Edit Your Listing</h1>
+            <p>Update the details of your item and save your changes.</p>
+        </div>
+
+        <div id="form-message" class="message" role="status"></div>
+
+        <form id="edit-listing-form" class="edit-form">
+
+            <div class="form-group">
+                <label for="title">Item Title *</label>
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="e.g. Engineering Mathematics Textbook"
+                    required
+                    maxlength="100">
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price (₹) *</label>
+                <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    placeholder="Enter your asking price"
+                    min="0"
+                    step="1"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category *</label>
+                <select id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <option value="Books">Books</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Furniture">Furniture</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Cycles">Cycles</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="condition">Item Condition *</label>
+                <select id="condition" name="condition" required>
+                    <option value="">Select condition</option>
+                    <option value="New">New</option>
+                    <option value="Like New">Like New</option>
+                    <option value="Good">Good</option>
+                    <option value="Fair">Fair</option>
+                    <option value="Needs Repair">Needs Repair</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description *</label>
+                <textarea
+                    id="description"
+                    name="description"
+                    placeholder="Describe your item, its condition, and any other important details..."
+                    required
+                    maxlength="2000"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Pickup Location *</label>
+                <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    placeholder="e.g. University hostel"
+                    required
+                    maxlength="150">
+            </div>
+
+            <div class="form-group">
+                <label for="image">Item Image</label>
+                <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    accept="image/*">
+
+                <p class="form-help">
+                    Choose an image from your device. The selected image will
+                    be saved in this browser for this demo.
+                </p>
+
+                <div id="image-preview" class="image-preview"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Listing Status *</label>
+                <select id="status" name="status" required>
+                    <option value="Available">Available</option>
+                    <option value="Reserved">Reserved</option>
+                    <option value="Sold">Sold</option>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="save-button">
+                    Save Changes
+                </button>
+
+                <a href="marketplace.html" class="cancel-button">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+
+    </main>
+
+    <script>
+        const form = document.getElementById("edit-listing-form");
+        const message = document.getElementById("form-message");
+        const imageInput = document.getElementById("image");
+        const imagePreview = document.getElementById("image-preview");
+
+        const params = new URLSearchParams(window.location.search);
+        const listingId = params.get("id");
+
+        let currentImage = "";
+        let currentListing = null;
+
+        const sampleListing = {
+            id: "1",
+            title: "Engineering Mathematics Textbook",
+            price: 450,
+            category: "Books",
+            condition: "Good",
+            description: "Engineering Mathematics textbook in good condition.",
+            location: "BML Munjal University",
+            status: "Available",
+            image: "",
+            seller: "Campus Student",
+            date: new Date().toLocaleDateString()
+        };
+
+        function getListings() {
+            try {
+                const stored = JSON.parse(
+                    localStorage.getItem("campusListings")
+                );
+
+                return Array.isArray(stored) ? stored : [];
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function showMessage(text, type) {
+            message.textContent = text;
+            message.className = "message " + type;
+        }
+
+        function loadListing() {
+            const listings = getListings();
+
+            if (listingId) {
+                currentListing = listings.find(
+                    item => String(item.id) === listingId
+                ) || (listingId === "1" ? { ...sampleListing } : null);
+            } else {
+                currentListing = listings[0]
+                    ? { ...listings[0] }
+                    : { ...sampleListing };
+            }
+
+            if (!currentListing) {
+                form.hidden = true;
+
+                showMessage(
+                    "Listing not found. Return to the marketplace and open a valid listing.",
+                    "error"
+                );
+
+                return;
+            }
+
+            document.getElementById("title").value =
+                currentListing.title || "";
+
+            document.getElementById("price").value =
+                currentListing.price ?? "";
+
+            document.getElementById("category").value =
+                currentListing.category || "";
+
+            document.getElementById("condition").value =
+                currentListing.condition || "";
+
+            document.getElementById("description").value =
+                currentListing.description || "";
+
+            document.getElementById("location").value =
+                currentListing.location || "";
+
+            document.getElementById("status").value =
+                currentListing.status || "Available";
+
+            currentImage = currentListing.image || "";
+
+            renderImagePreview();
+        }
+
+        function renderImagePreview() {
+            imagePreview.replaceChildren();
+
+            if (!currentImage) return;
+
+            const image = document.createElement("img");
+            image.src = currentImage;
+            image.alt = "Current listing image";
+
+            imagePreview.appendChild(image);
+        }
+
+        imageInput.addEventListener("change", () => {
+            const file = imageInput.files[0];
+
+            if (!file) return;
+
+            if (!file.type.startsWith("image/")) {
+                showMessage("Please select a valid image file.", "error");
+                imageInput.value = "";
+                return;
+            }
+
+            // Keep this demo's localStorage usage reasonable.
+            if (file.size > 2 * 1024 * 1024) {
+                showMessage(
+                    "Please choose an image smaller than 2 MB.",
+                    "error"
+                );
+
+                imageInput.value = "";
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = event => {
+                currentImage = event.target.result;
+                renderImagePreview();
+            };
+
+            reader.onerror = () => {
+                showMessage("Unable to read this image.", "error");
+            };
+
+            reader.readAsDataURL(file);
+        });
+
+        form.addEventListener("submit", event => {
+            event.preventDefault();
+
+            if (!form.reportValidity()) return;
+
+            const updatedListing = {
+                ...currentListing,
+                id: String(currentListing.id || listingId || "1"),
+                title: document.getElementById("title").value.trim(),
+                price: Number(document.getElementById("price").value),
+                category: document.getElementById("category").value,
+                condition: document.getElementById("condition").value,
+                description: document.getElementById("description").value.trim(),
+                location: document.getElementById("location").value.trim(),
+                status: document.getElementById("status").value,
+                image: currentImage,
+                date: currentListing.date || new Date().toLocaleDateString()
+            };
+
+            if (
+                !updatedListing.title ||
+                !updatedListing.description ||
+                !updatedListing.location ||
+                !Number.isFinite(updatedListing.price) ||
+                updatedListing.price < 0
+            ) {
+                showMessage("Please check all the required fields.", "error");
+                return;
+            }
+
+            const listings = getListings();
+
+            const index = listings.findIndex(
+                item => String(item.id) === String(updatedListing.id)
+            );
+
+            if (index >= 0) {
+                listings[index] = updatedListing;
+            } else {
+                listings.push(updatedListing);
+            }
+
+            try {
+                localStorage.setItem(
+                    "campusListings",
+                    JSON.stringify(listings)
+                );
+            } catch (error) {
+                showMessage(
+                    "Could not save the listing. Try a smaller image or remove the image and try again.",
+                    "error"
+                );
+                return;
+            }
+
+            showMessage("Changes saved successfully!", "success");
+
+            setTimeout(() => {
+                window.location.href =
+                    "listing.html?id=" +
+                    encodeURIComponent(updatedListing.id);
+            }, 800);
+        });
+
+        loadListing();
+    </script>
+
 </body>
 </html>

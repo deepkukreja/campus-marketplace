@@ -4,14 +4,399 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Listing | Campus Marketplace</title>
+    <title>Item Details | Campus Marketplace</title>
 
+    <!-- Shared CSS -->
     <link rel="stylesheet" href="../css/base.css">
+
+    <!-- Page-specific CSS -->
+    <link rel="stylesheet" href="../css/pages/listing.css">
+
+    <style>
+        .listing-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 25px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .listing-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+        }
+
+        .listing-image {
+            width: 100%;
+            min-height: 350px;
+            background: #f3f4f6;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .listing-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .image-placeholder {
+            font-size: 90px;
+        }
+
+        .listing-category {
+            display: inline-block;
+            background: #eff6ff;
+            color: #2563eb;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .listing-title {
+            font-size: 32px;
+            margin: 0 0 12px;
+            color: #111827;
+        }
+
+        .listing-price {
+            font-size: 30px;
+            font-weight: bold;
+            color: #111827;
+            margin: 20px 0;
+        }
+
+        .listing-condition {
+            color: #4b5563;
+            margin-bottom: 20px;
+        }
+
+        .listing-description {
+            line-height: 1.8;
+            color: #4b5563;
+            margin: 20px 0;
+            white-space: pre-wrap;
+        }
+
+        .seller-card {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+        }
+
+        .seller-card h3 {
+            margin-top: 0;
+        }
+
+        .seller-details {
+            color: #4b5563;
+            line-height: 1.8;
+        }
+
+        .listing-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .listing-actions button,
+        .listing-actions a {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .primary-button {
+            background: #2563eb;
+            color: white;
+        }
+
+        .secondary-button {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .danger-button {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .listing-meta {
+            color: #6b7280;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .not-found {
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+        .not-found a {
+            color: #2563eb;
+        }
+
+        @media (max-width: 750px) {
+            .listing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .listing-title {
+                font-size: 26px;
+            }
+
+            .listing-image img {
+                height: 300px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div id="app"></div>
 
-    <script type="module" src="../js/pages/listing.js"></script>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="marketplace.html">Marketplace</a>
+            <a href="wanted.html">Wanted</a>
+            <a href="create-listing.html">Sell an Item</a>
+            <a href="create-wanted.html">Request an Item</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+    </header>
+
+    <main class="listing-container">
+
+        <div class="breadcrumb">
+            <a href="marketplace.html">Marketplace</a>
+            / <span id="breadcrumb-title">Item Details</span>
+        </div>
+
+        <div id="listing-content"></div>
+
+    </main>
+
+    <script>
+        /*
+         * Demo listing data.
+         * Later, you can replace this with data from your backend.
+         */
+        const sampleListing = {
+            id: "1",
+            title: "Engineering Mathematics Textbook",
+            price: 450,
+            category: "Books",
+            condition: "Good",
+            description:
+                "Engineering Mathematics textbook in good condition. All pages are intact and there are no missing chapters.\n\nIdeal for engineering students. Pickup available on campus.",
+            seller: "Campus Student",
+            location: "BML Munjal University",
+            date: new Date().toLocaleDateString(),
+            image: "",
+            status: "Available"
+        };
+
+        function getListings() {
+            try {
+                const stored = JSON.parse(
+                    localStorage.getItem("campusListings")
+                );
+
+                return Array.isArray(stored) ? stored : [];
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function getCurrentListing() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get("id");
+
+            const listings = getListings();
+
+            if (id) {
+                return listings.find(item => String(item.id) === id)
+                    || (id === "1" ? sampleListing : null);
+            }
+
+            return listings[0] || sampleListing;
+        }
+
+        function escapeHTML(value) {
+            return String(value ?? "").replace(/[&<>"']/g, character => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            })[character]);
+        }
+
+        function renderListing() {
+            const listing = getCurrentListing();
+            const container = document.getElementById("listing-content");
+
+            if (!listing) {
+                container.innerHTML = `
+                    <div class="not-found">
+                        <h2>Listing not found</h2>
+                        <p>This item may have been removed or the link is incorrect.</p>
+                        <a href="marketplace.html">Back to Marketplace</a>
+                    </div>
+                `;
+                return;
+            }
+
+            document.title =
+                `${listing.title || "Item Details"} | Campus Marketplace`;
+
+            document.getElementById("breadcrumb-title").textContent =
+                listing.title || "Item Details";
+
+            const imageHTML = listing.image
+                ? `<img src="${escapeHTML(listing.image)}"
+                        alt="${escapeHTML(listing.title)}">`
+                : `<div class="image-placeholder" aria-label="No item image">📦</div>`;
+
+            container.innerHTML = `
+                <div class="listing-grid">
+
+                    <section>
+                        <div class="listing-image">
+                            ${imageHTML}
+                        </div>
+                    </section>
+
+                    <section>
+                        <span class="listing-category">
+                            ${escapeHTML(listing.category || "Other")}
+                        </span>
+
+                        <h1 class="listing-title">
+                            ${escapeHTML(listing.title || "Untitled Item")}
+                        </h1>
+
+                        <div class="listing-price">
+                            ₹${Number(listing.price || 0).toLocaleString("en-IN")}
+                        </div>
+
+                        <p class="listing-condition">
+                            <strong>Condition:</strong>
+                            ${escapeHTML(listing.condition || "Not specified")}
+                        </p>
+
+                        <p>
+                            <strong>Status:</strong>
+                            ${escapeHTML(listing.status || "Available")}
+                        </p>
+
+                        <h3>Description</h3>
+
+                        <div class="listing-description">${escapeHTML(
+                            listing.description || "No description provided."
+                        )}</div>
+
+                        <div class="listing-actions">
+                            <button
+                                class="primary-button"
+                                id="contact-seller-button"
+                                type="button">
+                                Contact Seller
+                            </button>
+
+                            <a
+                                class="secondary-button"
+                                href="edit-listing.html?id=${encodeURIComponent(listing.id)}">
+                                Edit Listing
+                            </a>
+
+                            <button
+                                class="danger-button"
+                                id="delete-listing-button"
+                                type="button">
+                                Delete Listing
+                            </button>
+                        </div>
+
+                        <div class="seller-card">
+                            <h3>Seller Information</h3>
+
+                            <div class="seller-details">
+                                <p><strong>Name:</strong>
+                                    ${escapeHTML(listing.seller || "Campus Student")}
+                                </p>
+
+                                <p><strong>Location:</strong>
+                                    ${escapeHTML(listing.location || "Campus")}
+                                </p>
+
+                                <p><strong>Listed on:</strong>
+                                    ${escapeHTML(listing.date || "Not specified")}
+                                </p>
+                            </div>
+                        </div>
+
+                        <p class="listing-meta">
+                            Listing ID: ${escapeHTML(listing.id || "N/A")}
+                        </p>
+                    </section>
+
+                </div>
+            `;
+
+            document.getElementById("contact-seller-button")
+                .addEventListener("click", () => {
+                    alert(
+                        "Seller contact functionality will be connected when you add your messaging system."
+                    );
+                });
+
+            document.getElementById("delete-listing-button")
+                .addEventListener("click", () => {
+                    const confirmed = confirm(
+                        "Are you sure you want to delete this listing?"
+                    );
+
+                    if (!confirmed) return;
+
+                    const listings = getListings();
+                    const updatedListings = listings.filter(
+                        item => String(item.id) !== String(listing.id)
+                    );
+
+                    localStorage.setItem(
+                        "campusListings",
+                        JSON.stringify(updatedListings)
+                    );
+
+                    alert("Listing deleted if it was saved in this browser.");
+
+                    window.location.href = "marketplace.html";
+                });
+        }
+
+        renderListing();
+    </script>
+
 </body>
 </html>

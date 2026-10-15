@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Campus Marketplace</title>
 
+    <!-- Shared CSS -->
     <link rel="stylesheet" href="./css/base.css">
+
+    <!-- Homepage CSS -->
+    <link rel="stylesheet" href="./css/home.css">
 </head>
 
 <body>
 
+    <!-- =====================================
+         NAVIGATION
+    ====================================== -->
+
     <header class="site-header">
+
         <div class="site-header__inner">
 
             <a
@@ -47,9 +53,17 @@
             </nav>
 
         </div>
+
     </header>
 
+
+    <!-- =====================================
+         MAIN CONTENT
+    ====================================== -->
+
     <main class="home">
+
+        <!-- HERO SECTION -->
 
         <section class="home-intro">
 
@@ -87,6 +101,11 @@
 
         </section>
 
+
+        <!-- =====================================
+             BROWSE BY CATEGORY
+        ====================================== -->
+
         <section
             class="home-categories"
             aria-labelledby="categories-title"
@@ -104,55 +123,141 @@
 
             </div>
 
+
+            <!-- CATEGORY CARDS -->
+
             <div class="category-list">
 
-                <a
-                    class="category-item"
-                    href="./pages/marketplace.html"
-                >
-                    Electronics
-                </a>
+                <!-- Electronics -->
 
                 <a
                     class="category-item"
                     href="./pages/marketplace.html"
                 >
-                    Books
+                    <img
+                        class="category-item__image"
+                        src="./assets/images/electronics.svg"
+                        alt=""
+                        loading="lazy"
+                    >
+
+                    <span class="category-item__label">
+                        Electronics
+                    </span>
                 </a>
+
+
+                <!-- Books -->
 
                 <a
                     class="category-item"
                     href="./pages/marketplace.html"
                 >
-                    Hostel
+                    <img
+                        class="category-item__image"
+                        src="./assets/images/books.svg"
+                        alt=""
+                        loading="lazy"
+                    >
+
+                    <span class="category-item__label">
+                        Books
+                    </span>
                 </a>
+
+
+                <!-- Hostel essentials -->
 
                 <a
                     class="category-item"
                     href="./pages/marketplace.html"
                 >
-                    Furniture
+                    <img
+                        class="category-item__image"
+                        src="./assets/images/hostel.svg"
+                        alt=""
+                        loading="lazy"
+                    >
+
+                    <span class="category-item__label">
+                        Hostel
+                    </span>
                 </a>
+
+
+                <!-- Furniture -->
 
                 <a
                     class="category-item"
                     href="./pages/marketplace.html"
                 >
-                    Sports
+                    <img
+                        class="category-item__image"
+                        src="./assets/images/furniture.svg"
+                        alt=""
+                        loading="lazy"
+                    >
+
+                    <span class="category-item__label">
+                        Furniture
+                    </span>
                 </a>
+
+
+                <!-- Sports -->
 
                 <a
                     class="category-item"
                     href="./pages/marketplace.html"
                 >
-                    Academic
+                    <img
+                        class="category-item__image"
+                        src="./assets/images/sports.svg"
+                        alt=""
+                        loading="lazy"
+                    >
+
+                    <span class="category-item__label">
+                        Sports
+                    </span>
                 </a>
+
+
+                <!-- Academic supplies -->
 
                 <a
                     class="category-item"
                     href="./pages/marketplace.html"
                 >
-                    Other
+                    <img
+                        class="category-item__image"
+                        src="./assets/images/academic.svg"
+                        alt=""
+                        loading="lazy"
+                    >
+
+                    <span class="category-item__label">
+                        Academic
+                    </span>
+                </a>
+
+
+                <!-- Other items -->
+
+                <a
+                    class="category-item"
+                    href="./pages/marketplace.html"
+                >
+                    <img
+                        class="category-item__image"
+                        src="./assets/images/other.svg"
+                        alt=""
+                        loading="lazy"
+                    >
+
+                    <span class="category-item__label">
+                        Other
+                    </span>
                 </a>
 
             </div>
@@ -162,4 +267,5 @@
     </main>
 
 </body>
+
 </html>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-labelledby="title desc">
+<title id="title">Sports equipment illustration</title><desc id="desc">A clean illustrated object on a soft gradient background.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dbeafe"/><stop offset="1" stop-color="#c7d2fe"/></linearGradient>
+  <linearGradient id="obj" x1="0" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e2e8f0"/></linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#0f172a" flood-opacity=".13"/></filter>
+</defs>
+<rect width="600" height="400" rx="30" fill="url(#bg)"/>
+<circle cx="500" cy="70" r="74" fill="#ffffff" opacity=".24"/><circle cx="90" cy="330" r="104" fill="#ffffff" opacity=".18"/>
+<ellipse cx="300" cy="333" rx="165" ry="19" fill="#0f172a" opacity=".09"/>
+
+<g filter="url(#shadow)"><circle cx="250" cy="213" r="105" fill="#f8fafc" stroke="#334155" stroke-width="8"/><path d="M250 108l40 31-15 47h-50l-15-47z" fill="#1e293b"/><path d="M145 188l50-4 26 39-23 42-48-7z" fill="#1e293b"/><path d="M330 184l50 4-5 70-48 7-23-42z" fill="#1e293b"/><path d="M205 275l45-31 45 31-17 34h-56z" fill="#1e293b"/><path d="M193 139l-28-18M308 139l27-18M145 188l-28-21M355 188l28-21M199 275l-13 27M301 275l13 27" stroke="#334155" stroke-width="7" stroke-linecap="round"/></g>
+<circle cx="450" cy="107" r="45" fill="#f59e0b"/><path d="M430 70c26 16 42 40 40 72M414 103c25 11 51 10 72-2" fill="none" stroke="#ffffff" stroke-width="5" opacity=".85"/>
+
+</svg>

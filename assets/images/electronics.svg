@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-labelledby="title desc">
+<title id="title">Electronics and laptop illustration</title><desc id="desc">A clean illustrated object on a soft gradient background.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dbeafe"/><stop offset="1" stop-color="#bfdbfe"/></linearGradient>
+  <linearGradient id="obj" x1="0" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e2e8f0"/></linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#0f172a" flood-opacity=".13"/></filter>
+</defs>
+<rect width="600" height="400" rx="30" fill="url(#bg)"/>
+<circle cx="500" cy="70" r="74" fill="#ffffff" opacity=".24"/><circle cx="90" cy="330" r="104" fill="#ffffff" opacity=".18"/>
+<ellipse cx="300" cy="333" rx="165" ry="19" fill="#0f172a" opacity=".09"/>
+
+<g filter="url(#shadow)"><rect x="160" y="91" width="282" height="190" rx="15" fill="#1e293b"/><rect x="173" y="104" width="256" height="164" rx="7" fill="#eff6ff"/>
+<rect x="189" y="121" width="104" height="11" rx="5" fill="#93c5fd"/><rect x="189" y="144" width="160" height="7" rx="3" fill="#cbd5e1"/><rect x="189" y="160" width="130" height="7" rx="3" fill="#cbd5e1"/><rect x="189" y="176" width="176" height="7" rx="3" fill="#cbd5e1"/><circle cx="383" cy="220" r="20" fill="#2563eb" opacity=".88"/>
+<path d="M135 284h332l-28 29H164z" fill="#64748b"/><path d="M166 285h270l-14 14H180z" fill="#cbd5e1"/></g>
+<rect x="82" y="80" width="55" height="76" rx="12" fill="#ffffff" opacity=".6"/><circle cx="110" cy="118" r="16" fill="#60a5fa"/><rect x="472" y="230" width="39" height="65" rx="9" fill="#1e293b"/><rect x="478" y="238" width="27" height="45" rx="4" fill="#93c5fd"/>
+
+</svg>

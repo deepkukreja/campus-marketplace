@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-labelledby="title desc">
+<title id="title">Bicycle illustration</title><desc id="desc">A clean illustrated object on a soft gradient background.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e0f2fe"/><stop offset="1" stop-color="#bae6fd"/></linearGradient>
+  <linearGradient id="obj" x1="0" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e2e8f0"/></linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#0f172a" flood-opacity=".13"/></filter>
+</defs>
+<rect width="600" height="400" rx="30" fill="url(#bg)"/>
+<circle cx="500" cy="70" r="74" fill="#ffffff" opacity=".24"/><circle cx="90" cy="330" r="104" fill="#ffffff" opacity=".18"/>
+<ellipse cx="300" cy="333" rx="165" ry="19" fill="#0f172a" opacity=".09"/>
+
+<g fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="190" cy="260" r="75" stroke="#334155" stroke-width="10"/><circle cx="420" cy="260" r="75" stroke="#334155" stroke-width="10"/><path d="M190 260l65-104 70 104H190l45-72h90l95 72-53-122h-50" stroke="#2563eb" stroke-width="12"/><path d="M245 156h-35M390 138h35" stroke="#334155" stroke-width="9"/><path d="M300 260h35" stroke="#334155" stroke-width="10"/><circle cx="325" cy="260" r="13" fill="#f59e0b" stroke="#334155" stroke-width="6"/></g>
+<circle cx="464" cy="78" r="31" fill="#ffffff" opacity=".65"/><path d="M447 78h34M464 61v34" stroke="#38bdf8" stroke-width="5" stroke-linecap="round"/>
+
+</svg>
