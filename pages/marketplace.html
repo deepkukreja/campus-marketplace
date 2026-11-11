@@ -7,11 +7,337 @@
     <title>Marketplace | Campus Marketplace</title>
 
     <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/marketplace.css">
+    <link rel="stylesheet" href="../css/auth.css">
 </head>
 
 <body>
-    <div id="app"></div>
 
-    <script type="module" src="../js/pages/marketplace.js"></script>
+    <!-- Navigation -->
+    <header class="site-header">
+        <div class="site-header__inner">
+
+            <a class="site-header__brand" href="../index.html">
+                Campus Marketplace
+            </a>
+
+            <nav class="site-header__nav" aria-label="Main navigation">
+                <a href="./marketplace.html">Marketplace</a>
+                <a href="./wanted.html">Wanted</a>
+                <a href="./create-listing.html">Sell</a>
+                <a href="./profile.html">Profile</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- Main marketplace content -->
+    <main class="marketplace-page">
+
+        <!-- Page introduction -->
+        <section class="marketplace-intro">
+
+            <p class="home-kicker">Marketplace</p>
+
+            <div class="marketplace-heading">
+
+                <div>
+                    <h1>Browse campus listings</h1>
+
+                    <p>
+                        Find items available from students across your campus.
+                    </p>
+                </div>
+
+                <a class="button button--primary" href="./create-listing.html">
+                    Post an Item
+                </a>
+
+            </div>
+
+        </section>
+
+        <!-- Search and filters -->
+        <section
+            class="marketplace-controls"
+            aria-labelledby="filter-title"
+        >
+
+            <h2 id="filter-title">Find an item</h2>
+
+            <div class="filter-grid">
+
+                <div class="filter-field filter-field--search">
+                    <label for="search">Search</label>
+
+                    <input
+                        id="search"
+                        name="search"
+                        type="search"
+                        placeholder="Search listings..."
+                    >
+                </div>
+
+                <div class="filter-field">
+                    <label for="category">Category</label>
+
+                    <select id="category" name="category">
+                        <option value="">All categories</option>
+                        <option value="Academic">Academic</option>
+                        <option value="Books">Books</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Furniture">Furniture</option>
+                        <option value="Hostel">Hostel</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="filter-field">
+                    <label for="type">Type</label>
+
+                    <select id="type" name="type">
+                        <option value="">All types</option>
+                        <option value="sell">For sale</option>
+                        <option value="rent">For rent</option>
+                        <option value="swap">Swap</option>
+                        <option value="free">Free</option>
+                    </select>
+                </div>
+
+                <div class="filter-field">
+                    <label for="max-price">Maximum price</label>
+
+                    <input
+                        id="max-price"
+                        name="max-price"
+                        type="number"
+                        min="0"
+                        placeholder="Any price"
+                    >
+                </div>
+
+                <div class="filter-field">
+                    <label for="sort">Sort</label>
+
+                    <select id="sort" name="sort">
+                        <option value="newest">Newest</option>
+                        <option value="low-high">Price: Low to high</option>
+                        <option value="high-low">Price: High to low</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Recent listings -->
+        <section
+            class="listing-section"
+            aria-labelledby="listing-title"
+        >
+
+            <div class="listing-section__header">
+                <div class="section-heading">
+
+                    <h2 id="listing-title">Recent listings</h2>
+
+                    <p>
+                        Showing campus items available from students.
+                    </p>
+
+                </div>
+            </div>
+
+            <p id="listing-status" class="listing-status" role="status" aria-live="polite" hidden></p>
+
+            <div class="listing-grid">
+
+                <!-- Listing 1: Scientific calculator -->
+                <article class="listing-card">
+
+                    <a
+                        class="listing-card__link"
+                        href="./listing.html?id=demo-calculator"
+                    >
+
+                        <div class="listing-card__image">
+
+                            <img
+                                class="listing-card__photo"
+                                src="../assets/images/calculator.svg"
+                                alt="Scientific calculator"
+                                loading="lazy"
+                            >
+
+                            <span>Academic</span>
+
+                        </div>
+
+                        <div class="listing-card__content">
+
+                            <p class="listing-card__type">For sale</p>
+
+                            <h3 class="listing-card__title">
+                                Casio Scientific Calculator
+                            </h3>
+
+                            <p class="listing-card__condition">Good</p>
+
+                            <div class="listing-card__footer">
+                                <strong>₹650</strong>
+                                <span>Library Entrance</span>
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+                <!-- Listing 2: Study table -->
+                <article class="listing-card">
+
+                    <a
+                        class="listing-card__link"
+                        href="./listing.html?id=demo-study-table"
+                    >
+
+                        <div class="listing-card__image">
+
+                            <img
+                                class="listing-card__photo"
+                                src="../assets/images/study-table.svg"
+                                alt="Study table"
+                                loading="lazy"
+                            >
+
+                            <span>Furniture</span>
+
+                        </div>
+
+                        <div class="listing-card__content">
+
+                            <p class="listing-card__type">For sale</p>
+
+                            <h3 class="listing-card__title">
+                                Study Table
+                            </h3>
+
+                            <p class="listing-card__condition">Good</p>
+
+                            <div class="listing-card__footer">
+                                <strong>₹1,200</strong>
+                                <span>Hostel Common Area</span>
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+                <!-- Listing 3: Engineering textbooks -->
+                <article class="listing-card">
+
+                    <a
+                        class="listing-card__link"
+                        href="./listing.html?id=demo-textbooks"
+                    >
+
+                        <div class="listing-card__image">
+
+                            <img
+                                class="listing-card__photo"
+                                src="../assets/images/textbooks.svg"
+                                alt="Engineering textbooks"
+                                loading="lazy"
+                            >
+
+                            <span>Books</span>
+
+                        </div>
+
+                        <div class="listing-card__content">
+
+                            <p class="listing-card__type">For sale</p>
+
+                            <h3 class="listing-card__title">
+                                Engineering Textbook Set
+                            </h3>
+
+                            <p class="listing-card__condition">Like New</p>
+
+                            <div class="listing-card__footer">
+                                <strong>₹800</strong>
+                                <span>Academic Block Lobby</span>
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+                <!-- Listing 4: Bicycle -->
+                <article class="listing-card">
+
+                    <a
+                        class="listing-card__link"
+                        href="./listing.html?id=demo-bicycle"
+                    >
+
+                        <div class="listing-card__image">
+
+                            <img
+                                class="listing-card__photo"
+                                src="../assets/images/bicycle.svg"
+                                alt="Bicycle available for rent"
+                                loading="lazy"
+                            >
+
+                            <span>Sports</span>
+
+                        </div>
+
+                        <div class="listing-card__content">
+
+                            <p class="listing-card__type">For rent</p>
+
+                            <h3 class="listing-card__title">
+                                Bicycle
+                            </h3>
+
+                            <p class="listing-card__condition">Good</p>
+
+                            <div class="listing-card__footer">
+                                <strong>₹300</strong>
+                                <span>Student Activity Centre</span>
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Campus Marketplace JavaScript -->
+    <script src="../js/common.js" defer></script>
+    <script src="../js/marketplace.js" defer></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/marketplace-data.js"></script>
+    <script src="../js/auth-ui.js"></script>
 </body>
 </html>

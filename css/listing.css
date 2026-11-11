@@ -1,179 +1,315 @@
+/* =========================================
+   CAMPUS MARKETPLACE — LISTING DETAILS PAGE
+   File: css/listing.css
+   Used by: pages/listing.html
+========================================= */
 
-/* =====================================
-   PRODUCT DETAILS - listing.css
-===================================== */
-
-.listing-page {
-    padding-block: 2.5rem 4rem;
+/* Page container */
+.listing-container {
+    width: min(1100px, calc(100% - 40px));
+    margin: 40px auto;
+    padding: 20px 0 56px;
 }
 
 /* Breadcrumb navigation */
-
-.listing-breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
+.breadcrumb {
+    margin: 0 0 25px;
+    color: #64748b;
+    font-size: 14px;
 }
 
-.listing-breadcrumb a {
-    color: var(--color-text);
+.breadcrumb a {
+    color: #2563eb;
+    text-decoration: none;
 }
 
-/* Main product layout */
+.breadcrumb a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
 
-.listing-detail {
+/* Listing detail layout (supports both current and earlier class names) */
+.listing-grid,
+.listing-detail-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    gap: 3rem;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 40px;
 }
 
-.listing-detail__image {
-    aspect-ratio: 4 / 3;
+.listing-info {
+    min-width: 0;
+    padding: 8px 0;
+}
+
+/* Main item image */
+.listing-image,
+.listing-gallery {
     display: flex;
+    width: 100%;
+    min-height: 350px;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: #eeeeea;
-    border: 1px solid var(--color-border);
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
 }
 
-.listing-detail__image img {
+.listing-image img,
+.listing-gallery img {
+    display: block;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 400px;
+    object-fit: contain;
+    background: #f3f4f6;
 }
 
-.listing-detail__image span {
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
-    font-weight: 600;
+.image-placeholder {
+    display: grid;
+    min-height: 300px;
+    width: 100%;
+    place-items: center;
+    color: #64748b;
+    font-size: 90px;
 }
 
-/* Product information */
-
-.listing-detail__content h1 {
-    margin: 0;
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.1;
-}
-
-.listing-detail__price {
-    margin-block: 1rem 2rem;
-    color: var(--color-text);
-    font-size: 1.5rem;
+/* Listing information */
+.listing-category {
+    display: inline-block;
+    margin: 0 0 15px;
+    padding: 7px 12px;
+    color: #2563eb;
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 999px;
+    font-size: 13px;
     font-weight: 700;
 }
 
-/* Product facts */
-
-.listing-detail__facts {
-    display: grid;
-    gap: 0;
-    border-block: 1px solid var(--color-border);
+.listing-title {
+    margin: 0 0 12px;
+    color: #111827;
+    font-size: clamp(26px, 3vw, 34px);
+    font-weight: 800;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
 }
 
-.listing-detail__facts div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding-block: 0.85rem;
-    border-bottom: 1px solid var(--color-border);
+.listing-price {
+    margin: 20px 0;
+    color: #111827;
+    font-size: clamp(26px, 3vw, 32px);
+    font-weight: 800;
 }
 
-.listing-detail__facts div:last-child {
-    border-bottom: 0;
+.listing-condition {
+    margin: 0 0 14px;
+    color: #4b5563;
+    line-height: 1.6;
 }
 
-.listing-detail__facts span {
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
+.listing-description {
+    margin: 16px 0 20px;
+    color: #4b5563;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
 }
 
-.listing-detail__facts strong {
-    text-align: right;
-}
-
-/* Product description */
-
-.listing-detail__description {
-    padding-block: 2rem;
-}
-
-.listing-detail__description h2 {
-    margin: 0 0 0.75rem;
-    font-size: 1.2rem;
-}
-
-.listing-detail__description p {
-    margin: 0;
-}
-
-/* Product actions */
-
-.listing-detail__actions {
+/* Contact, edit and delete buttons */
+.listing-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 12px;
+    margin-top: 25px;
 }
 
-.listing-detail__note {
-    margin-top: 1rem;
-    font-size: 0.82rem;
+.listing-actions button,
+.listing-actions a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 18px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color .18s ease, border-color .18s ease, transform .18s ease;
 }
 
-/* Product not found */
-
-.listing-not-found {
-    max-width: 650px;
-    padding-block: 3rem;
+.listing-actions button:disabled {
+    cursor: not-allowed;
+    opacity: .65;
 }
 
-.listing-not-found h1 {
-    margin: 0;
+.primary-button {
+    color: #fff;
+    background: #2563eb;
+    border-color: #2563eb;
 }
 
-.listing-not-found p:not(.home-kicker) {
-    margin-block: 1rem 2rem;
+.primary-button:hover:not(:disabled) {
+    color: #fff;
+    background: #1d4ed8;
 }
 
-/* Responsive layout */
+.secondary-button {
+    color: #111827;
+    background: #f3f4f6;
+    border-color: #e5e7eb !important;
+}
 
-@media (max-width: 950px) {
-    .listing-detail {
+.secondary-button:hover {
+    color: #111827;
+    background: #e5e7eb;
+}
+
+.danger-button {
+    color: #b91c1c;
+    background: #fee2e2;
+    border-color: #fecaca !important;
+}
+
+.danger-button:hover:not(:disabled) {
+    color: #991b1b;
+    background: #fecaca;
+}
+
+/* Live feedback for delete actions */
+.listing-action-message {
+    margin-top: 14px;
+    padding: 12px 14px;
+    color: #991b1b;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    line-height: 1.5;
+}
+
+.listing-action-message[data-type="success"] {
+    color: #166534;
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+.listing-action-message[data-type="info"] {
+    color: #1e40af;
+    background: #eff6ff;
+    border-color: #bfdbfe;
+}
+
+/* Seller information */
+.seller-card {
+    margin-top: 25px;
+    padding: 20px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.seller-card h3 {
+    margin: 0 0 10px;
+    color: #111827;
+}
+
+.seller-details {
+    color: #4b5563;
+    line-height: 1.8;
+}
+
+.seller-details p:last-child {
+    margin-bottom: 0;
+}
+
+.listing-meta {
+    margin-top: 20px;
+    color: #6b7280;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+/* Empty and unavailable states */
+.not-found,
+.empty-state {
+    padding: 60px 20px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+}
+
+.not-found h2,
+.empty-state h2 {
+    margin-bottom: 12px;
+    color: #111827;
+}
+
+.not-found a,
+.empty-state a {
+    color: #2563eb;
+}
+
+/* Keyboard accessibility */
+.listing-actions button:focus-visible,
+.listing-actions a:focus-visible,
+.breadcrumb a:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 3px;
+}
+
+/* Tablet and mobile layouts */
+@media (max-width: 750px) {
+    .listing-container {
+        width: min(100% - 28px, 640px);
+        margin-top: 24px;
+        padding-top: 12px;
+    }
+
+    .listing-grid,
+    .listing-detail-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 24px;
+    }
+
+    .listing-image,
+    .listing-gallery {
+        min-height: 260px;
+    }
+
+    .listing-image img,
+    .listing-gallery img {
+        height: 300px;
+    }
+
+    .listing-title {
+        font-size: 26px;
     }
 }
 
-@media (max-width: 600px) {
-    .listing-page {
-        padding-block: 2rem 3rem;
-    }
-
-    .listing-breadcrumb {
-        flex-wrap: wrap;
-    }
-
-    .listing-detail__actions {
-        align-items: stretch;
+@media (max-width: 420px) {
+    .listing-actions {
         flex-direction: column;
+        align-items: stretch;
     }
 
-    .listing-detail__actions .button {
+    .listing-actions button,
+    .listing-actions a {
         width: 100%;
     }
 
-    .listing-detail__facts div {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 0.25rem;
+    .seller-card {
+        padding: 16px;
     }
+}
 
-    .listing-detail__facts strong {
-        text-align: left;
+@media (prefers-reduced-motion: reduce) {
+    .listing-actions button,
+    .listing-actions a {
+        transition: none;
     }
 }

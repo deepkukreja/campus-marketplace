@@ -4,14 +4,229 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Listing | Campus Marketplace</title>
+    <title>Item Details | Campus Marketplace</title>
 
+    <!-- Shared CSS -->
     <link rel="stylesheet" href="../css/base.css">
+
+    <!-- Page-specific CSS -->
+    <link rel="stylesheet" href="../css/listing.css">
+
+    <style>
+        .listing-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 25px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .listing-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+        }
+
+        .listing-image {
+            width: 100%;
+            min-height: 350px;
+            background: #f3f4f6;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .listing-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .image-placeholder {
+            font-size: 90px;
+        }
+
+        .listing-category {
+            display: inline-block;
+            background: #eff6ff;
+            color: #2563eb;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .listing-title {
+            font-size: 32px;
+            margin: 0 0 12px;
+            color: #111827;
+        }
+
+        .listing-price {
+            font-size: 30px;
+            font-weight: bold;
+            color: #111827;
+            margin: 20px 0;
+        }
+
+        .listing-condition {
+            color: #4b5563;
+            margin-bottom: 20px;
+        }
+
+        .listing-description {
+            line-height: 1.8;
+            color: #4b5563;
+            margin: 20px 0;
+            white-space: pre-wrap;
+        }
+
+        .seller-card {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+        }
+
+        .seller-card h3 {
+            margin-top: 0;
+        }
+
+        .seller-details {
+            color: #4b5563;
+            line-height: 1.8;
+        }
+
+        .listing-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .listing-actions button,
+        .listing-actions a {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .primary-button {
+            background: #2563eb;
+            color: white;
+        }
+
+        .secondary-button {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .danger-button {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .listing-meta {
+            color: #6b7280;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .not-found {
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+        .not-found a {
+            color: #2563eb;
+        }
+
+        @media (max-width: 750px) {
+            .listing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .listing-title {
+                font-size: 26px;
+            }
+
+            .listing-image img {
+                height: 300px;
+            }
+        }
+    
+        .listing-action-message {
+            margin-top: 14px;
+            padding: 12px 14px;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            background: #fef2f2;
+            color: #991b1b;
+            line-height: 1.5;
+        }
+        .listing-action-message[data-type="success"] {
+            border-color: #bbf7d0;
+            background: #f0fdf4;
+            color: #166534;
+        }
+        .listing-action-message[data-type="info"] {
+            border-color: #bfdbfe;
+            background: #eff6ff;
+            color: #1e40af;
+        }
+    </style>
+    <link rel="stylesheet" href="../css/auth.css">
 </head>
 
 <body>
-    <div id="app"></div>
 
-    <script type="module" src="../js/pages/listing.js"></script>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="marketplace.html">Marketplace</a>
+            <a href="wanted.html">Wanted</a>
+            <a href="create-listing.html">Sell an Item</a>
+            <a href="create-wanted.html">Request an Item</a>
+            <a href="messages.html">Messages</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+    </header>
+
+    <main class="listing-container">
+
+        <div class="breadcrumb">
+            <a href="marketplace.html">Marketplace</a>
+            / <span id="breadcrumb-title">Item Details</span>
+        </div>
+
+        <div id="listing-content"></div>
+
+    </main>
+
+    <!-- Load dependencies first, then the page controller. -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="../js/supabase-config.js" defer></script>
+    <script src="../js/supabase-client.js" defer></script>
+    <script src="../js/common.js" defer></script>
+    <script src="../js/auth.js" defer></script>
+    <script src="../js/marketplace-data.js" defer></script>
+    <script src="../js/wanted-data.js" defer></script>
+    <script src="../js/auth-ui.js" defer></script>
+    <script src="../js/listing.js" defer></script>
 </body>
 </html>

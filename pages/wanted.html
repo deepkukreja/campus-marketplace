@@ -2,24 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wanted Board | Campus Marketplace</title>
-
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/wanted.css">
+    <link rel="stylesheet" href="../css/messages.css">
 </head>
+<body data-auth-required="true">
+    <header class="site-header">
+        <div class="site-header__inner">
+            <a class="site-header__brand" href="../index.html">Campus Marketplace</a>
+            <nav class="site-header__nav" aria-label="Main navigation">
+                <a href="./marketplace.html">Marketplace</a>
+                <a href="./wanted.html" aria-current="page">Wanted</a>
+                <a href="./create-listing.html">Sell</a>
+                <a href="./messages.html">Messages</a>
+                <a href="./profile.html">Profile</a>
+            </nav>
+        </div>
+    </header>
 
-<body>
-    <div id="app"></div>
+    <main class="wanted-page">
+        <section class="wanted-intro">
+            <p class="home-kicker">Wanted Board</p>
+            <div class="wanted-heading">
+                <div>
+                    <h1>Tell the campus what you need.</h1>
+                    <p>Browse requests from students looking for items across campus.</p>
+                </div>
+                <a class="button button--primary" href="./create-wanted.html">Post a Wanted Request</a>
+            </div>
+            <a class="wanted-messages-link" href="./messages.html">Open your messages →</a>
+        </section>
 
-    <script
-        type="module"
-        src="../js/pages/wanted.js"
-    ></script>
+        <section class="wanted-section" aria-labelledby="wanted-section-title">
+            <div class="wanted-section__header">
+                <div class="section-heading">
+                    <h2 id="wanted-section-title">Open requests</h2>
+                    <p>Current requests from students on campus.</p>
+                </div>
+            </div>
+            <p id="wanted-status" class="wanted-status" role="status" aria-live="polite"></p>
+            <div class="wanted-grid" aria-live="polite"></div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js" defer></script>
+    <script src="../js/supabase-client.js" defer></script>
+    <script src="../js/auth.js" defer></script>
+    <script src="../js/auth-ui.js" defer></script>
+    <script src="../js/auth-guard.js" defer></script>
+    <script src="../js/common.js" defer></script>
+    <script src="../js/wanted-data.js" defer></script>
+    <script src="../js/wanted.js" defer></script>
 </body>
 </html>

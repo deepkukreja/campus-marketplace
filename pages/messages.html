@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages | Campus Marketplace</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/messages.css">
+</head>
+<body data-auth-required="true">
+    <header class="site-header">
+        <div class="site-header__inner">
+            <a class="site-header__brand" href="../index.html">Campus Marketplace</a>
+            <nav class="site-header__nav" aria-label="Main navigation">
+                <a href="./marketplace.html">Marketplace</a>
+                <a href="./wanted.html">Wanted</a>
+                <a href="./create-listing.html">Sell</a>
+                <a href="./messages.html" aria-current="page">Messages</a>
+                <a href="./profile.html">Profile</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="messages-page">
+        <section class="messages-intro">
+            <p class="home-kicker">Campus Marketplace</p>
+            <h1>Your messages</h1>
+            <p>Talk directly with students about marketplace listings and wanted requests.</p>
+        </section>
+
+        <p id="messages-status" class="messages-status" role="status" aria-live="polite"></p>
+
+        <section class="messages-layout" aria-label="Messaging inbox">
+            <aside class="inbox-panel">
+                <div class="inbox-panel__heading">
+                    <h2>Conversations</h2>
+                    <a href="./wanted.html">Wanted board</a>
+                </div>
+                <div id="conversation-list" class="conversation-list"></div>
+            </aside>
+
+            <section class="chat-panel" aria-label="Chat conversation">
+                <div class="chat-panel__heading">
+                    <div>
+                        <h2 id="chat-title">Your messages</h2>
+                        <p id="chat-subtitle">Choose a conversation to start chatting.</p>
+                    </div>
+                </div>
+                <div id="message-list" class="message-list" aria-live="polite"></div>
+                <form id="message-form" class="message-form" hidden>
+                    <label class="visually-hidden" for="message-input">Write a message</label>
+                    <textarea id="message-input" name="message" rows="2" maxlength="2000" placeholder="Write a message…" required></textarea>
+                    <button id="send-message-button" class="button button--primary" type="submit">Send</button>
+                </form>
+            </section>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js" defer></script>
+    <script src="../js/supabase-client.js" defer></script>
+    <script src="../js/auth.js" defer></script>
+    <script src="../js/auth-ui.js" defer></script>
+    <script src="../js/auth-guard.js" defer></script>
+    <script src="../js/wanted-data.js" defer></script>
+    <script src="../js/messages.js" defer></script>
+</body>
+</html>

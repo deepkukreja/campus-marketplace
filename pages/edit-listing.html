@@ -2,23 +2,296 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Edit Listing | Campus Marketplace</title>
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/edit-listing.css">
+    <style>
+        .edit-container {
+            max-width: 750px;
+            margin: 40px auto;
+            padding: 20px;
+        }
 
-    <link rel="stylesheet" href="../css/base.css">
+        .edit-header {
+            margin-bottom: 30px;
+        }
+
+        .edit-header h1 {
+            font-size: 30px;
+            color: #111827;
+            margin-bottom: 10px;
+        }
+
+        .edit-header p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .edit-form {
+            background: white;
+            padding: 30px;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: 2px solid #93c5fd;
+            border-color: #2563eb;
+        }
+
+        .form-group textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .form-help {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 7px;
+        }
+
+        .image-preview {
+            margin-top: 12px;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 250px;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+
+        .form-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .form-actions button,
+        .form-actions a {
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .save-button {
+            background: #2563eb;
+            color: white;
+        }
+
+        .cancel-button {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .message {
+            display: none;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .message.error {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .message.success {
+            display: block;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        @media (max-width: 600px) {
+            .edit-form {
+                padding: 20px;
+            }
+
+            .edit-header h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="../css/auth.css">
 </head>
 
-<body>
-    <div id="app"></div>
+<body data-auth-required="true">
 
-    <script
-        type="module"
-        src="../js/pages/edit-listing.js"
-    ></script>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="marketplace.html">Marketplace</a>
+            <a href="wanted.html">Wanted</a>
+            <a href="create-listing.html">Sell an Item</a>
+            <a href="create-wanted.html">Request an Item</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+    </header>
+
+    <main class="edit-container">
+
+        <div class="edit-header">
+            <h1>Edit Your Listing</h1>
+            <p>Update the details of your item and save your changes.</p>
+        </div>
+
+        <div id="form-message" class="message" role="status"></div>
+
+        <form id="edit-listing-form" class="edit-form">
+
+            <div class="form-group">
+                <label for="title">Item Title *</label>
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="e.g. Engineering Mathematics Textbook"
+                    required
+                    maxlength="100">
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price (₹) *</label>
+                <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    placeholder="Enter your asking price"
+                    min="0"
+                    step="1"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category *</label>
+                <select id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <option value="Academic">Academic</option>
+                    <option value="Books">Books</option>
+                    <option value="Hostel">Hostel</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Furniture">Furniture</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Cycles">Cycles</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="condition">Item Condition *</label>
+                <select id="condition" name="condition" required>
+                    <option value="">Select condition</option>
+                    <option value="New">New</option>
+                    <option value="Like New">Like New</option>
+                    <option value="Good">Good</option>
+                    <option value="Fair">Fair</option>
+                    <option value="Needs Repair">Needs Repair</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description *</label>
+                <textarea
+                    id="description"
+                    name="description"
+                    placeholder="Describe your item, its condition, and any other important details..."
+                    required
+                    maxlength="2000"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Pickup Location *</label>
+                <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    placeholder="e.g. University hostel"
+                    required
+                    maxlength="150">
+            </div>
+
+            <div class="form-group">
+                <label for="image">Item Image</label>
+                <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+
+                <p class="form-help">
+                    Choose a JPG, PNG or WebP image (maximum 2 MB). It will be uploaded to Supabase Storage.
+                </p>
+
+                <div id="image-preview" class="image-preview"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Listing Status *</label>
+                <select id="status" name="status" required>
+                    <option value="Available">Available</option>
+                    <option value="Reserved">Reserved</option>
+                    <option value="Sold">Sold</option>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="save-button">
+                    Save Changes
+                </button>
+
+                <a href="marketplace.html" class="cancel-button">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+
+    </main>
+
+    <!-- Campus Marketplace JavaScript -->
+    <script src="../js/common.js" defer></script>
+    <script src="../js/edit-listing.js" defer></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/marketplace-data.js"></script>
+    <script src="../js/auth-ui.js"></script>
+    <script src="../js/auth-guard.js"></script>
 </body>
 </html>

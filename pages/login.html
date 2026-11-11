@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in | Campus Marketplace</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-header__inner">
+            <a class="site-header__brand" href="../index.html">Campus Marketplace</a>
+            <nav class="site-header__nav" aria-label="Main navigation">
+                <a href="./marketplace.html">Marketplace</a>
+                <a href="./wanted.html">Wanted</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="auth-page">
+        <section class="auth-card" aria-labelledby="login-title">
+            <p class="auth-kicker">BMU student access</p>
+            <h1 id="login-title">Welcome back.</h1>
+            <p class="auth-lead">Log in with your official university email to continue to Campus Marketplace.</p>
+            <div id="auth-message" class="auth-message" role="status" aria-live="polite"></div>
+
+            <form id="login-form" class="auth-form">
+                <div class="auth-field">
+                    <label for="login-email">BMU email address</label>
+                    <input id="login-email" name="email" type="email" autocomplete="username" placeholder="you@bmu.edu.in" required>
+                </div>
+                <div class="auth-field">
+                    <label for="login-password">Password</label>
+                    <div class="auth-password-row">
+                        <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+                        <button class="auth-show-password" type="button" aria-controls="login-password">Show</button>
+                    </div>
+                </div>
+                <button class="button button--primary auth-submit" type="submit">Log in</button>
+            </form>
+
+            <section id="password-reset-panel" class="auth-reset-panel" hidden>
+                <form id="password-reset-form" class="auth-form">
+                    <div class="auth-field">
+                        <label for="new-password">New password</label>
+                        <input id="new-password" type="password" autocomplete="new-password" minlength="8" required>
+                    </div>
+                    <div class="auth-field">
+                        <label for="new-password-confirm">Confirm new password</label>
+                        <input id="new-password-confirm" type="password" autocomplete="new-password" minlength="8" required>
+                    </div>
+                    <button class="button button--primary auth-submit" type="submit">Update password</button>
+                </form>
+            </section>
+
+            <div class="auth-links">
+                <a href="./forgot-password.html">Forgot password?</a>
+                <a href="./signup.html">Create an account</a>
+            </div>
+            <p class="auth-domain-note">Access is limited to verified BMU student email addresses ending in <strong>@bmu.edu.in</strong>.</p>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/auth-ui.js"></script>
+    <script src="../js/login.js"></script>
+</body>
+</html>
