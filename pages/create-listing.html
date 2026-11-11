@@ -12,9 +12,10 @@
 
    <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/create-listing.css">
+    <link rel="stylesheet" href="../css/auth.css">
 </head>
 
-<body>
+<body data-auth-required="true">
 
     <header class="site-header">
         <div class="site-header__inner">
@@ -331,12 +332,11 @@
                         id="image"
                         name="image"
                         type="file"
-                        accept="image/*"
+                        accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
                     >
 
                     <p class="field-help">
-                        An image helps other students understand
-                        the item.
+                        An image helps other students understand the item. JPG, PNG or WebP; maximum 2 MB. Images are uploaded to Supabase Storage.
                     </p>
 
                 </div>
@@ -377,5 +377,17 @@
 
     </main>
 
+
+    <!-- Campus Marketplace JavaScript -->
+    <script src="../js/common.js" defer></script>
+    <script src="../js/create-listing.js" defer></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/marketplace-data.js"></script>
+    <script src="../js/auth-ui.js"></script>
+    <script src="../js/auth-guard.js"></script>
 </body>
 </html>

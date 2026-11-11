@@ -1,0 +1,164 @@
+/* Authentication pages and shared auth UI */
+.auth-page {
+    width: min(100% - 36px, 520px);
+    margin: 54px auto 76px;
+}
+.auth-card {
+    padding: clamp(24px, 5vw, 42px);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow-md);
+}
+.auth-kicker {
+    display: inline-block;
+    margin: 0 0 12px;
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+}
+.auth-card h1 {
+    margin: 0 0 10px;
+    font-size: clamp(28px, 5vw, 36px);
+}
+.auth-lead {
+    margin: 0 0 26px;
+    color: var(--text-secondary);
+}
+.auth-form {
+    display: grid;
+    gap: 17px;
+}
+.auth-field {
+    display: grid;
+    gap: 7px;
+}
+.auth-field label {
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 700;
+}
+.auth-field input,
+.auth-field select {
+    width: 100%;
+    min-height: 48px;
+    padding: 11px 13px;
+    border: 1px solid var(--border-dark);
+    border-radius: 9px;
+    background: #fff;
+    color: var(--text);
+    font: inherit;
+}
+.auth-field input:focus,
+.auth-field select:focus {
+    outline: 3px solid rgba(37, 99, 235, .14);
+    border-color: var(--primary);
+}
+.auth-field small {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+.auth-password-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.auth-password-row input { flex: 1; min-width: 0; }
+.auth-show-password {
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #f8fafc;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 13px;
+}
+.auth-submit { width: 100%; margin-top: 4px; }
+.auth-links {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+    font-size: 14px;
+}
+.auth-links a { font-weight: 700; text-decoration: none; }
+.auth-message {
+    display: none;
+    margin: 0 0 18px;
+    padding: 12px 14px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    font-size: 14px;
+}
+.auth-message.is-visible { display: block; }
+.auth-message.is-error { color: #991b1b; background: #fef2f2; border-color: #fecaca; }
+.auth-message.is-success { color: #166534; background: #f0fdf4; border-color: #bbf7d0; }
+.auth-message.is-info { color: #1e40af; background: #eff6ff; border-color: #bfdbfe; }
+.auth-domain-note {
+    margin: 18px 0 0;
+    padding: 12px 14px;
+    border-radius: 9px;
+    background: #eff6ff;
+    color: #1e40af;
+    font-size: 13px;
+}
+.auth-nav-group {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-left: 4px;
+}
+.auth-nav-user {
+    max-width: 190px;
+    overflow: hidden;
+    color: var(--text-muted);
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 8px;
+}
+.auth-nav-logout {
+    min-height: 38px;
+    padding: 7px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.auth-nav-logout:hover { background: var(--primary-light); color: var(--primary); }
+.auth-setup-message {
+    width: min(100% - 36px, 760px);
+    margin: 28px auto;
+    padding: 18px 20px;
+    border: 1px solid #f5d28a;
+    border-radius: 12px;
+    background: #fffbeb;
+    color: #78350f;
+}
+.auth-setup-message strong { display: block; margin-bottom: 5px; }
+body.auth-pending main { visibility: hidden; }
+/* Explicitly respect the HTML hidden attribute even on elements with display rules. */
+.auth-form[hidden],
+.auth-reset-panel[hidden],
+.auth-links[hidden],
+.auth-domain-note[hidden] {
+    display: none !important;
+}
+/* A recovery link opens a focused password-reset screen, not the login navigation. */
+body.auth-recovery-mode .auth-nav-group {
+    display: none !important;
+}
+@media (max-width: 700px) {
+    .site-header__inner { align-items: flex-start; flex-direction: column; gap: 8px; padding: 14px 0; }
+    .site-header__nav { justify-content: flex-start; }
+    .auth-nav-user { display: none; }
+}

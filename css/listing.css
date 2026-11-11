@@ -1,19 +1,315 @@
-/* Item details page */
-.listing-container { padding-top: 30px; padding-bottom: 55px; }
-.breadcrumb { margin: 0 0 24px; color: var(--muted); font-size: .9rem; }
-.breadcrumb a { color: var(--primary); text-decoration: none; }
-.listing-detail-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 38px; }
-.listing-image, .listing-gallery {
-    min-height: 340px; display: grid; place-items: center;
-    overflow: hidden; background: #f1f5f9; border-radius: 18px;
+/* =========================================
+   CAMPUS MARKETPLACE — LISTING DETAILS PAGE
+   File: css/listing.css
+   Used by: pages/listing.html
+========================================= */
+
+/* Page container */
+.listing-container {
+    width: min(1100px, calc(100% - 40px));
+    margin: 40px auto;
+    padding: 20px 0 56px;
 }
-.listing-image img, .listing-gallery img { width: 100%; height: 420px; object-fit: cover; }
-.listing-info { padding: 8px 0; }
-.listing-category { display: inline-block; margin-bottom: 14px; padding: 5px 10px; background: var(--soft-blue); color: var(--primary); border-radius: 999px; font-size: .82rem; }
-.listing-title { margin: 0 0 12px; font-size: clamp(1.8rem, 3vw, 2.5rem); }
-.listing-price { font-size: 2rem; font-weight: 850; margin: 15px 0; }
-.listing-description { white-space: pre-line; line-height: 1.8; }
-.seller-card { margin-top: 24px; padding: 20px; background: #fff; border: 1px solid var(--border); border-radius: 14px; }
-.listing-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-.not-found, .empty-state { padding: 48px 20px; text-align: center; background: #fff; border-radius: var(--radius); }
-@media (max-width: 760px) { .listing-detail-grid { grid-template-columns: 1fr; } .listing-image img, .listing-gallery img { height: 300px; } }
+
+/* Breadcrumb navigation */
+.breadcrumb {
+    margin: 0 0 25px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.breadcrumb a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+/* Listing detail layout (supports both current and earlier class names) */
+.listing-grid,
+.listing-detail-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 40px;
+}
+
+.listing-info {
+    min-width: 0;
+    padding: 8px 0;
+}
+
+/* Main item image */
+.listing-image,
+.listing-gallery {
+    display: flex;
+    width: 100%;
+    min-height: 350px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+}
+
+.listing-image img,
+.listing-gallery img {
+    display: block;
+    width: 100%;
+    height: 400px;
+    object-fit: contain;
+    background: #f3f4f6;
+}
+
+.image-placeholder {
+    display: grid;
+    min-height: 300px;
+    width: 100%;
+    place-items: center;
+    color: #64748b;
+    font-size: 90px;
+}
+
+/* Listing information */
+.listing-category {
+    display: inline-block;
+    margin: 0 0 15px;
+    padding: 7px 12px;
+    color: #2563eb;
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.listing-title {
+    margin: 0 0 12px;
+    color: #111827;
+    font-size: clamp(26px, 3vw, 34px);
+    font-weight: 800;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+}
+
+.listing-price {
+    margin: 20px 0;
+    color: #111827;
+    font-size: clamp(26px, 3vw, 32px);
+    font-weight: 800;
+}
+
+.listing-condition {
+    margin: 0 0 14px;
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.listing-description {
+    margin: 16px 0 20px;
+    color: #4b5563;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* Contact, edit and delete buttons */
+.listing-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.listing-actions button,
+.listing-actions a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 18px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+.listing-actions button:disabled {
+    cursor: not-allowed;
+    opacity: .65;
+}
+
+.primary-button {
+    color: #fff;
+    background: #2563eb;
+    border-color: #2563eb;
+}
+
+.primary-button:hover:not(:disabled) {
+    color: #fff;
+    background: #1d4ed8;
+}
+
+.secondary-button {
+    color: #111827;
+    background: #f3f4f6;
+    border-color: #e5e7eb !important;
+}
+
+.secondary-button:hover {
+    color: #111827;
+    background: #e5e7eb;
+}
+
+.danger-button {
+    color: #b91c1c;
+    background: #fee2e2;
+    border-color: #fecaca !important;
+}
+
+.danger-button:hover:not(:disabled) {
+    color: #991b1b;
+    background: #fecaca;
+}
+
+/* Live feedback for delete actions */
+.listing-action-message {
+    margin-top: 14px;
+    padding: 12px 14px;
+    color: #991b1b;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    line-height: 1.5;
+}
+
+.listing-action-message[data-type="success"] {
+    color: #166534;
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+.listing-action-message[data-type="info"] {
+    color: #1e40af;
+    background: #eff6ff;
+    border-color: #bfdbfe;
+}
+
+/* Seller information */
+.seller-card {
+    margin-top: 25px;
+    padding: 20px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.seller-card h3 {
+    margin: 0 0 10px;
+    color: #111827;
+}
+
+.seller-details {
+    color: #4b5563;
+    line-height: 1.8;
+}
+
+.seller-details p:last-child {
+    margin-bottom: 0;
+}
+
+.listing-meta {
+    margin-top: 20px;
+    color: #6b7280;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+/* Empty and unavailable states */
+.not-found,
+.empty-state {
+    padding: 60px 20px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+}
+
+.not-found h2,
+.empty-state h2 {
+    margin-bottom: 12px;
+    color: #111827;
+}
+
+.not-found a,
+.empty-state a {
+    color: #2563eb;
+}
+
+/* Keyboard accessibility */
+.listing-actions button:focus-visible,
+.listing-actions a:focus-visible,
+.breadcrumb a:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 3px;
+}
+
+/* Tablet and mobile layouts */
+@media (max-width: 750px) {
+    .listing-container {
+        width: min(100% - 28px, 640px);
+        margin-top: 24px;
+        padding-top: 12px;
+    }
+
+    .listing-grid,
+    .listing-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .listing-image,
+    .listing-gallery {
+        min-height: 260px;
+    }
+
+    .listing-image img,
+    .listing-gallery img {
+        height: 300px;
+    }
+
+    .listing-title {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 420px) {
+    .listing-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .listing-actions button,
+    .listing-actions a {
+        width: 100%;
+    }
+
+    .seller-card {
+        padding: 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .listing-actions button,
+    .listing-actions a {
+        transition: none;
+    }
+}

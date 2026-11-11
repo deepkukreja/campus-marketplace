@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../css/base.css">
 
     <!-- Page-specific CSS -->
-    <link rel="stylesheet" href="../css/pages/listing.css">
+    <link rel="stylesheet" href="../css/listing.css">
 
     <style>
         .listing-container {
@@ -168,7 +168,28 @@
                 height: 300px;
             }
         }
+    
+        .listing-action-message {
+            margin-top: 14px;
+            padding: 12px 14px;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            background: #fef2f2;
+            color: #991b1b;
+            line-height: 1.5;
+        }
+        .listing-action-message[data-type="success"] {
+            border-color: #bbf7d0;
+            background: #f0fdf4;
+            color: #166534;
+        }
+        .listing-action-message[data-type="info"] {
+            border-color: #bfdbfe;
+            background: #eff6ff;
+            color: #1e40af;
+        }
     </style>
+    <link rel="stylesheet" href="../css/auth.css">
 </head>
 
 <body>
@@ -181,6 +202,7 @@
             <a href="wanted.html">Wanted</a>
             <a href="create-listing.html">Sell an Item</a>
             <a href="create-wanted.html">Request an Item</a>
+            <a href="messages.html">Messages</a>
             <a href="profile.html">Profile</a>
         </nav>
     </header>
@@ -196,207 +218,15 @@
 
     </main>
 
-    <script>
-        /*
-         * Demo listing data.
-         * Later, you can replace this with data from your backend.
-         */
-        const sampleListing = {
-            id: "1",
-            title: "Engineering Mathematics Textbook",
-            price: 450,
-            category: "Books",
-            condition: "Good",
-            description:
-                "Engineering Mathematics textbook in good condition. All pages are intact and there are no missing chapters.\n\nIdeal for engineering students. Pickup available on campus.",
-            seller: "Campus Student",
-            location: "BML Munjal University",
-            date: new Date().toLocaleDateString(),
-            image: "",
-            status: "Available"
-        };
-
-        function getListings() {
-            try {
-                const stored = JSON.parse(
-                    localStorage.getItem("campusListings")
-                );
-
-                return Array.isArray(stored) ? stored : [];
-            } catch (error) {
-                return [];
-            }
-        }
-
-        function getCurrentListing() {
-            const params = new URLSearchParams(window.location.search);
-            const id = params.get("id");
-
-            const listings = getListings();
-
-            if (id) {
-                return listings.find(item => String(item.id) === id)
-                    || (id === "1" ? sampleListing : null);
-            }
-
-            return listings[0] || sampleListing;
-        }
-
-        function escapeHTML(value) {
-            return String(value ?? "").replace(/[&<>"']/g, character => ({
-                "&": "&amp;",
-                "<": "&lt;",
-                ">": "&gt;",
-                '"': "&quot;",
-                "'": "&#39;"
-            })[character]);
-        }
-
-        function renderListing() {
-            const listing = getCurrentListing();
-            const container = document.getElementById("listing-content");
-
-            if (!listing) {
-                container.innerHTML = `
-                    <div class="not-found">
-                        <h2>Listing not found</h2>
-                        <p>This item may have been removed or the link is incorrect.</p>
-                        <a href="marketplace.html">Back to Marketplace</a>
-                    </div>
-                `;
-                return;
-            }
-
-            document.title =
-                `${listing.title || "Item Details"} | Campus Marketplace`;
-
-            document.getElementById("breadcrumb-title").textContent =
-                listing.title || "Item Details";
-
-            const imageHTML = listing.image
-                ? `<img src="${escapeHTML(listing.image)}"
-                        alt="${escapeHTML(listing.title)}">`
-                : `<div class="image-placeholder" aria-label="No item image">📦</div>`;
-
-            container.innerHTML = `
-                <div class="listing-grid">
-
-                    <section>
-                        <div class="listing-image">
-                            ${imageHTML}
-                        </div>
-                    </section>
-
-                    <section>
-                        <span class="listing-category">
-                            ${escapeHTML(listing.category || "Other")}
-                        </span>
-
-                        <h1 class="listing-title">
-                            ${escapeHTML(listing.title || "Untitled Item")}
-                        </h1>
-
-                        <div class="listing-price">
-                            ₹${Number(listing.price || 0).toLocaleString("en-IN")}
-                        </div>
-
-                        <p class="listing-condition">
-                            <strong>Condition:</strong>
-                            ${escapeHTML(listing.condition || "Not specified")}
-                        </p>
-
-                        <p>
-                            <strong>Status:</strong>
-                            ${escapeHTML(listing.status || "Available")}
-                        </p>
-
-                        <h3>Description</h3>
-
-                        <div class="listing-description">${escapeHTML(
-                            listing.description || "No description provided."
-                        )}</div>
-
-                        <div class="listing-actions">
-                            <button
-                                class="primary-button"
-                                id="contact-seller-button"
-                                type="button">
-                                Contact Seller
-                            </button>
-
-                            <a
-                                class="secondary-button"
-                                href="edit-listing.html?id=${encodeURIComponent(listing.id)}">
-                                Edit Listing
-                            </a>
-
-                            <button
-                                class="danger-button"
-                                id="delete-listing-button"
-                                type="button">
-                                Delete Listing
-                            </button>
-                        </div>
-
-                        <div class="seller-card">
-                            <h3>Seller Information</h3>
-
-                            <div class="seller-details">
-                                <p><strong>Name:</strong>
-                                    ${escapeHTML(listing.seller || "Campus Student")}
-                                </p>
-
-                                <p><strong>Location:</strong>
-                                    ${escapeHTML(listing.location || "Campus")}
-                                </p>
-
-                                <p><strong>Listed on:</strong>
-                                    ${escapeHTML(listing.date || "Not specified")}
-                                </p>
-                            </div>
-                        </div>
-
-                        <p class="listing-meta">
-                            Listing ID: ${escapeHTML(listing.id || "N/A")}
-                        </p>
-                    </section>
-
-                </div>
-            `;
-
-            document.getElementById("contact-seller-button")
-                .addEventListener("click", () => {
-                    alert(
-                        "Seller contact functionality will be connected when you add your messaging system."
-                    );
-                });
-
-            document.getElementById("delete-listing-button")
-                .addEventListener("click", () => {
-                    const confirmed = confirm(
-                        "Are you sure you want to delete this listing?"
-                    );
-
-                    if (!confirmed) return;
-
-                    const listings = getListings();
-                    const updatedListings = listings.filter(
-                        item => String(item.id) !== String(listing.id)
-                    );
-
-                    localStorage.setItem(
-                        "campusListings",
-                        JSON.stringify(updatedListings)
-                    );
-
-                    alert("Listing deleted if it was saved in this browser.");
-
-                    window.location.href = "marketplace.html";
-                });
-        }
-
-        renderListing();
-    </script>
-
+    <!-- Load dependencies first, then the page controller. -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="../js/supabase-config.js" defer></script>
+    <script src="../js/supabase-client.js" defer></script>
+    <script src="../js/common.js" defer></script>
+    <script src="../js/auth.js" defer></script>
+    <script src="../js/marketplace-data.js" defer></script>
+    <script src="../js/wanted-data.js" defer></script>
+    <script src="../js/auth-ui.js" defer></script>
+    <script src="../js/listing.js" defer></script>
 </body>
 </html>

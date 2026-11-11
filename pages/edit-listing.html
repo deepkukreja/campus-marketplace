@@ -144,9 +144,10 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="../css/auth.css">
 </head>
 
-<body>
+<body data-auth-required="true">
 
     <!-- Navigation -->
     <header>
@@ -198,7 +199,9 @@
                 <label for="category">Category *</label>
                 <select id="category" name="category" required>
                     <option value="">Select a category</option>
+                    <option value="Academic">Academic</option>
                     <option value="Books">Books</option>
+                    <option value="Hostel">Hostel</option>
                     <option value="Electronics">Electronics</option>
                     <option value="Furniture">Furniture</option>
                     <option value="Sports">Sports</option>
@@ -247,11 +250,10 @@
                     type="file"
                     id="image"
                     name="image"
-                    accept="image/*">
+                    accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
 
                 <p class="form-help">
-                    Choose an image from your device. The selected image will
-                    be saved in this browser for this demo.
+                    Choose a JPG, PNG or WebP image (maximum 2 MB). It will be uploaded to Supabase Storage.
                 </p>
 
                 <div id="image-preview" class="image-preview"></div>
@@ -280,213 +282,16 @@
 
     </main>
 
-    <script>
-        const form = document.getElementById("edit-listing-form");
-        const message = document.getElementById("form-message");
-        const imageInput = document.getElementById("image");
-        const imagePreview = document.getElementById("image-preview");
+    <!-- Campus Marketplace JavaScript -->
+    <script src="../js/common.js" defer></script>
+    <script src="../js/edit-listing.js" defer></script>
 
-        const params = new URLSearchParams(window.location.search);
-        const listingId = params.get("id");
-
-        let currentImage = "";
-        let currentListing = null;
-
-        const sampleListing = {
-            id: "1",
-            title: "Engineering Mathematics Textbook",
-            price: 450,
-            category: "Books",
-            condition: "Good",
-            description: "Engineering Mathematics textbook in good condition.",
-            location: "BML Munjal University",
-            status: "Available",
-            image: "",
-            seller: "Campus Student",
-            date: new Date().toLocaleDateString()
-        };
-
-        function getListings() {
-            try {
-                const stored = JSON.parse(
-                    localStorage.getItem("campusListings")
-                );
-
-                return Array.isArray(stored) ? stored : [];
-            } catch (error) {
-                return [];
-            }
-        }
-
-        function showMessage(text, type) {
-            message.textContent = text;
-            message.className = "message " + type;
-        }
-
-        function loadListing() {
-            const listings = getListings();
-
-            if (listingId) {
-                currentListing = listings.find(
-                    item => String(item.id) === listingId
-                ) || (listingId === "1" ? { ...sampleListing } : null);
-            } else {
-                currentListing = listings[0]
-                    ? { ...listings[0] }
-                    : { ...sampleListing };
-            }
-
-            if (!currentListing) {
-                form.hidden = true;
-
-                showMessage(
-                    "Listing not found. Return to the marketplace and open a valid listing.",
-                    "error"
-                );
-
-                return;
-            }
-
-            document.getElementById("title").value =
-                currentListing.title || "";
-
-            document.getElementById("price").value =
-                currentListing.price ?? "";
-
-            document.getElementById("category").value =
-                currentListing.category || "";
-
-            document.getElementById("condition").value =
-                currentListing.condition || "";
-
-            document.getElementById("description").value =
-                currentListing.description || "";
-
-            document.getElementById("location").value =
-                currentListing.location || "";
-
-            document.getElementById("status").value =
-                currentListing.status || "Available";
-
-            currentImage = currentListing.image || "";
-
-            renderImagePreview();
-        }
-
-        function renderImagePreview() {
-            imagePreview.replaceChildren();
-
-            if (!currentImage) return;
-
-            const image = document.createElement("img");
-            image.src = currentImage;
-            image.alt = "Current listing image";
-
-            imagePreview.appendChild(image);
-        }
-
-        imageInput.addEventListener("change", () => {
-            const file = imageInput.files[0];
-
-            if (!file) return;
-
-            if (!file.type.startsWith("image/")) {
-                showMessage("Please select a valid image file.", "error");
-                imageInput.value = "";
-                return;
-            }
-
-            // Keep this demo's localStorage usage reasonable.
-            if (file.size > 2 * 1024 * 1024) {
-                showMessage(
-                    "Please choose an image smaller than 2 MB.",
-                    "error"
-                );
-
-                imageInput.value = "";
-                return;
-            }
-
-            const reader = new FileReader();
-
-            reader.onload = event => {
-                currentImage = event.target.result;
-                renderImagePreview();
-            };
-
-            reader.onerror = () => {
-                showMessage("Unable to read this image.", "error");
-            };
-
-            reader.readAsDataURL(file);
-        });
-
-        form.addEventListener("submit", event => {
-            event.preventDefault();
-
-            if (!form.reportValidity()) return;
-
-            const updatedListing = {
-                ...currentListing,
-                id: String(currentListing.id || listingId || "1"),
-                title: document.getElementById("title").value.trim(),
-                price: Number(document.getElementById("price").value),
-                category: document.getElementById("category").value,
-                condition: document.getElementById("condition").value,
-                description: document.getElementById("description").value.trim(),
-                location: document.getElementById("location").value.trim(),
-                status: document.getElementById("status").value,
-                image: currentImage,
-                date: currentListing.date || new Date().toLocaleDateString()
-            };
-
-            if (
-                !updatedListing.title ||
-                !updatedListing.description ||
-                !updatedListing.location ||
-                !Number.isFinite(updatedListing.price) ||
-                updatedListing.price < 0
-            ) {
-                showMessage("Please check all the required fields.", "error");
-                return;
-            }
-
-            const listings = getListings();
-
-            const index = listings.findIndex(
-                item => String(item.id) === String(updatedListing.id)
-            );
-
-            if (index >= 0) {
-                listings[index] = updatedListing;
-            } else {
-                listings.push(updatedListing);
-            }
-
-            try {
-                localStorage.setItem(
-                    "campusListings",
-                    JSON.stringify(listings)
-                );
-            } catch (error) {
-                showMessage(
-                    "Could not save the listing. Try a smaller image or remove the image and try again.",
-                    "error"
-                );
-                return;
-            }
-
-            showMessage("Changes saved successfully!", "success");
-
-            setTimeout(() => {
-                window.location.href =
-                    "listing.html?id=" +
-                    encodeURIComponent(updatedListing.id);
-            }, 800);
-        });
-
-        loadListing();
-    </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/marketplace-data.js"></script>
+    <script src="../js/auth-ui.js"></script>
+    <script src="../js/auth-guard.js"></script>
 </body>
 </html>
