@@ -124,7 +124,9 @@
                         <div class="listing-actions">
                             ${isOwner
                                 ? '<span class="listing-owner-label">Your listing</span>'
-                                : '<button class="primary-button" id="contact-seller-button" type="button">Contact Seller</button>'}
+                                : currentListing.ownerId
+                                    ? '<button class="primary-button" id="contact-seller-button" type="button">Contact Seller</button>'
+                                    : '<span class="listing-owner-label">Demo listing · no student seller to contact</span>'}
                             ${ownerActions}
                         </div>
                         <div class="seller-card">

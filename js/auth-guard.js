@@ -12,7 +12,11 @@
             const notice = document.createElement("div");
             notice.className = "auth-setup-message";
             notice.setAttribute("role", "alert");
-            notice.innerHTML = `<strong>Authentication setup is not complete.</strong>${auth.getConfigurationError()} Open the project setup guide and finish the Supabase configuration.`;
+            const heading = document.createElement("strong");
+            heading.textContent = "Authentication setup is not complete. ";
+            notice.append(heading, document.createTextNode(
+                `${auth.getConfigurationError()} Check the Supabase configuration.`
+            ));
             main?.prepend(notice);
             const form = main?.querySelector("form");
             if (form) form.hidden = true;

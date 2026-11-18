@@ -263,9 +263,37 @@
 
         const combined = [...(asRequester.data || []), ...(asInterested.data || [])];
         const unique = new Map(combined.map(row => [row.id, row]));
-        return [...unique.values()].sort((a, b) =>
+        const conversations = [...unique.values()].sort((a, b) =>
             new Date(b.created_at || 0) - new Date(a.created_at || 0)
         );
+
+        if (!conversations.length) return conversations;
+
+        // The conversation fields reference auth.users, which the browser cannot
+        // read directly. Names live in public.profiles (protected by its RLS).
+        const participantIds = [...new Set(conversations.flatMap(row => [
+            row.requester_id, row.interested_user_id
+        ]).filter(Boolean))];
+        const { data: profiles, error: profileError } = await client
+            .from("profiles")
+            .select("id, full_name")
+            .in("id", participantIds);
+        if (profileError) throw profileError;
+
+        const profileNames = new Map((profiles || []).map(profile => [
+            profile.id, String(profile.full_name || "").trim()
+        ]));
+
+        return conversations.map(conversation => {
+            const otherStudentId = conversation.requester_id === user.id
+                ? conversation.interested_user_id
+                : conversation.requester_id;
+            return {
+                ...conversation,
+                otherStudentId,
+                otherStudentName: profileNames.get(otherStudentId) || "BMU student"
+            };
+        });
     }
 
     async function getConversationMessages(conversationId) {

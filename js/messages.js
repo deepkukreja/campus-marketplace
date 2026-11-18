@@ -15,6 +15,11 @@
     let activeConversations = [];
     let knownMessageIds = new Set();
     let pollingTimer = null;
+    let inboxTimer = null;
+
+    function getOtherStudentName(conversation) {
+        return conversation?.otherStudentName || "BMU student";
+    }
 
     function setStatus(message, type = "info") {
         statusNode.textContent = message;
@@ -45,7 +50,7 @@
         return isOwner ? "You posted this request" : "You expressed interest";
     }
 
-    function addMessageBubble(message) {
+    function addMessageBubble(message, conversation) {
         const wrapper = document.createElement("article");
         const mine = message.sender_id === user.id;
         wrapper.className = `chat-message ${mine ? "is-mine" : "is-theirs"}`;
@@ -57,7 +62,7 @@
         const meta = document.createElement("div");
         meta.className = "chat-message__meta";
         const date = new Date(message.created_at);
-        meta.textContent = `${mine ? "You" : "Other student"} · ${Number.isNaN(date.getTime()) ? "" : date.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}`;
+        meta.textContent = `${mine ? "You" : getOtherStudentName(conversation)} · ${Number.isNaN(date.getTime()) ? "" : date.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}`;
 
         wrapper.append(body, meta);
         messageList.append(wrapper);
@@ -82,10 +87,10 @@
             button.dataset.conversationId = conversation.id;
 
             const title = document.createElement("strong");
-            title.textContent = getConversationTitle(conversation);
+            title.textContent = getOtherStudentName(conversation);
 
             const role = document.createElement("span");
-            role.textContent = getConversationRole(conversation);
+            role.textContent = `${getConversationTitle(conversation)} · ${getConversationRole(conversation)}`;
 
             const date = document.createElement("small");
             const created = new Date(conversation.created_at);
@@ -131,18 +136,14 @@
         const conversation = activeConversations.find(item => item.id === activeConversationId);
         if (!conversation) return;
 
-        const listingChat = isListingConversation(conversation);
-        titleNode.textContent = getConversationTitle(conversation);
-        subtitleNode.textContent = listingChat
-            ? (conversation.requester_id === user.id
-                ? "A student contacted you about your marketplace listing."
-                : "You contacted the seller about this marketplace listing.")
-            : (conversation.requester_id === user.id
-                ? "A student is interested in your wanted request."
-                : "You contacted the student who posted this wanted request.");
+        titleNode.textContent = getOtherStudentName(conversation);
+        subtitleNode.textContent = `${getConversationTitle(conversation)} · ${getConversationRole(conversation)}`;
         form.hidden = false;
 
-        const messages = await CampusWantedDB.getConversationMessages(activeConversationId);
+        const conversationId = activeConversationId;
+        const messages = await CampusWantedDB.getConversationMessages(conversationId);
+        // A late response from a different chat must never paint this chat.
+        if (activeConversationId !== conversationId) return;
         const unseen = messages.filter(message => !knownMessageIds.has(message.id));
 
         if (unseen.length || forceScroll) {
@@ -151,12 +152,12 @@
                 knownMessageIds.clear();
                 messages.forEach(message => {
                     knownMessageIds.add(message.id);
-                    addMessageBubble(message);
+                    addMessageBubble(message, conversation);
                 });
             } else {
                 unseen.forEach(message => {
                     knownMessageIds.add(message.id);
-                    addMessageBubble(message);
+                    addMessageBubble(message, conversation);
                 });
             }
             messageList.scrollTop = messageList.scrollHeight;
@@ -220,12 +221,30 @@
 
             // Poll for new messages until Supabase Realtime is configured.
             pollingTimer = window.setInterval(async () => {
+                if (document.hidden) return;
                 try {
                     await loadMessages(false);
                 } catch (error) {
                     console.warn("Message refresh failed:", error);
                 }
             }, 5000);
+
+            // Also discover conversations opened by other students while this
+            // inbox stays open. Message bodies keep using the 5-second poll.
+            inboxTimer = window.setInterval(async () => {
+                if (document.hidden) return;
+                try {
+                    const conversations = await CampusWantedDB.getMyConversations(user);
+                    activeConversations = conversations;
+                    renderConversationList();
+                    if (!activeConversationId && conversations.length) {
+                        activeConversationId = conversations[0].id;
+                        await loadMessages(true);
+                    }
+                } catch (error) {
+                    console.warn("Conversation refresh failed:", error);
+                }
+            }, 15000);
         } catch (error) {
             console.error("Inbox could not load:", error);
             setStatus(error.message || "Could not load your inbox. Check the Supabase setup.", "error");
@@ -234,6 +253,7 @@
 
     window.addEventListener("beforeunload", () => {
         if (pollingTimer) window.clearInterval(pollingTimer);
+        if (inboxTimer) window.clearInterval(inboxTimer);
     });
 
     init();

@@ -1,0 +1,12 @@
+{
+  "name": "campus-marketplace-express-evaluation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local-only Express and JSON CRUD demonstration for web development evaluation",
+  "scripts": {
+    "start": "node index.cjs"
+  },
+  "dependencies": {
+    "express": "5.1.0"
+  }
+}
