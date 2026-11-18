@@ -58,6 +58,18 @@
                 <a href="./forgot-password.html">Forgot password?</a>
                 <a href="./signup.html">Create an account</a>
             </div>
+            <details id="resend-confirmation" class="auth-resend">
+                <summary>Verification email expired or missing? Resend it</summary>
+                <p class="auth-resend-help">If you signed up but have not verified your BMU email, request a fresh confirmation link. Already verified? Just log in above.</p>
+                <form id="resend-confirmation-form" class="auth-form">
+                    <div class="auth-field">
+                        <label for="confirmation-email">BMU email address</label>
+                        <input id="confirmation-email" name="email" type="email" autocomplete="email" placeholder="you@bmu.edu.in" required>
+                    </div>
+                    <button class="button button--secondary auth-submit" type="submit">Resend confirmation email</button>
+                </form>
+                <p id="resend-status" class="auth-message" role="status" aria-live="polite"></p>
+            </details>
             <p class="auth-domain-note">Access is limited to verified BMU student email addresses ending in <strong>@bmu.edu.in</strong>.</p>
         </section>
     </main>

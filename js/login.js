@@ -12,6 +12,13 @@
     const params = new URLSearchParams(window.location.search);
     const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ""));
     const isRecoveryRoute = params.get("mode") === "recovery" || hashParams.get("type") === "recovery";
+    // Supabase returns errors in the URL fragment even if the email link was rejected.
+    const callbackError = hashParams.get("error") || params.get("error");
+    const callbackErrorCode = hashParams.get("error_code") || params.get("error_code");
+    const hasCallbackError = Boolean(callbackError);
+    const resendDetails = document.getElementById("resend-confirmation");
+    const resendForm = document.getElementById("resend-confirmation-form");
+    const resendStatus = document.getElementById("resend-status");
     let recoveryEventReceived = false;
 
     const signupLink = document.querySelector('.auth-links a[href="./signup.html"]');
@@ -51,14 +58,26 @@
         if (domainNote) domainNote.hidden = false;
     }
 
+    if (hasCallbackError) {
+        const isExpired = callbackErrorCode === "otp_expired";
+        if (isExpired) {
+            showMessage("This email verification or password-reset link is invalid, expired, or already used. If your account is already verified, log in normally. Otherwise, request a new confirmation email below. For password resets, use 'Forgot password?'.", "error");
+            if (!isRecoveryRoute && resendDetails) resendDetails.open = true;
+        } else {
+            // The Supabase fragment contains untrusted text, so display a fixed message rather than rendering it as HTML.
+            showMessage("The authentication link could not be verified. Please sign in or request a fresh confirmation/password-reset email.", "error");
+            if (!isRecoveryRoute && resendDetails) resendDetails.open = true;
+        }
+    }
+
     // Switch the view immediately for recovery URLs so the login form is never
     // displayed while Supabase is processing the password-reset link.
-    if (isRecoveryRoute) {
+    if (isRecoveryRoute && !hasCallbackError) {
         showRecoveryPanel("Checking your password-reset link…", "info");
     }
 
     if (!CampusAuth.isConfigured()) {
-        if (isRecoveryRoute) {
+        if (isRecoveryRoute && !hasCallbackError) {
             showRecoveryPanel(CampusAuth.getConfigurationError(), "error");
         } else {
             showMessage(CampusAuth.getConfigurationError(), "error");
@@ -72,12 +91,16 @@
             } else if (event === "SIGNED_OUT" && document.body.classList.contains("auth-recovery-mode")) {
                 showLoginPanel();
                 showMessage("Your password-reset session has ended. Request a new reset link.", "error");
-            } else if (!isRecoveryRoute && session && event === "SIGNED_IN") {
+            } else if (!isRecoveryRoute && !hasCallbackError && session && event === "SIGNED_IN") {
                 window.location.replace(CampusAuth.getSafeNextUrl());
             }
         });
 
         CampusAuth.client.auth.getSession().then(({ data, error }) => {
+            if (hasCallbackError) {
+                // Do not redirect away before showing the expired-link explanation.
+                return;
+            }
             if (isRecoveryRoute) {
                 if (data?.session || recoveryEventReceived) {
                     showRecoveryPanel("Enter a new password for your account.", "info");
@@ -92,7 +115,7 @@
                 window.location.replace(CampusAuth.getSafeNextUrl());
             }
         }).catch(error => {
-            if (isRecoveryRoute && !recoveryEventReceived) {
+            if (isRecoveryRoute && !hasCallbackError && !recoveryEventReceived) {
                 showLoginPanel();
                 showMessage(error.message || "We could not validate the reset link. Request a new one.", "error");
             }
@@ -123,6 +146,32 @@
             button.textContent = "Log in";
         }
     });
+
+    if (resendForm && resendStatus) {
+        resendForm.addEventListener("submit", async event => {
+            event.preventDefault();
+            if (!resendForm.reportValidity() || !CampusAuth.isConfigured()) return;
+            const email = document.getElementById("confirmation-email").value.trim().toLowerCase();
+            if (!CampusAuth.isBMUEmail(email)) {
+                resendStatus.textContent = "Please use your official @bmu.edu.in address.";
+                resendStatus.className = "auth-message is-visible is-error";
+                return;
+            }
+            const button = resendForm.querySelector('button[type="submit"]');
+            button.disabled = true;
+            try {
+                const { error } = await CampusAuth.resendConfirmation(email);
+                if (error) throw error;
+                resendStatus.textContent = "If this account is awaiting verification, a new link will arrive in your inbox. Use the newest email only, while this site is running.";
+                resendStatus.className = "auth-message is-visible is-success";
+            } catch (error) {
+                resendStatus.textContent = error.message || "Could not send a new link. Try again later.";
+                resendStatus.className = "auth-message is-visible is-error";
+            } finally {
+                button.disabled = false;
+            }
+        });
+    }
 
     // Clear stale login errors as soon as the user starts correcting credentials.
     ["login-email", "login-password"].forEach(id => {

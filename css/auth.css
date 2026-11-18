@@ -162,3 +162,15 @@ body.auth-recovery-mode .auth-nav-group {
     .site-header__nav { justify-content: flex-start; }
     .auth-nav-user { display: none; }
 }
+
+/* Accessible recovery path for a verification email which has expired. */
+.auth-resend {
+    margin-top: 20px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #fff;
+}
+.auth-resend summary { cursor: pointer; font-weight: 700; color: var(--primary); }
+.auth-resend-help { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+.auth-resend .auth-message { margin-top: 14px; margin-bottom: 0; }

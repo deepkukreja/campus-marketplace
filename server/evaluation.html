@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Express API Evaluation | Campus Marketplace</title>
+  <style>
+    :root { font-family: system-ui, Arial, sans-serif; color:#172334; background:#f5f7fc; }
+    body { max-width:780px; margin:35px auto; padding:0 18px; }
+    main { padding:25px; border-radius:14px; background:white; box-shadow:0 2px 20px #d1d5db60; }
+    h1 { margin-top:0; } p { line-height:1.6; }
+    label { display:block; margin:16px 0 6px; font-weight:600; }
+    input, textarea { box-sizing:border-box; width:100%; font:inherit; padding:11px; border:1px solid #b8c1d0; border-radius:8px; }
+    button { padding:10px 15px; background:#1d4ed8; color:white; border:0; border-radius:8px; cursor:pointer; margin:8px 8px 8px 0; }
+    button.delete { background:#b91c1c; } li { margin:12px 0; border-bottom:1px solid #ddd; padding-bottom:10px; }
+    #status { min-height:1.6em; } code { background:#eee; padding:2px 4px; }
+  </style>
+</head>
+<body><main>
+  <h1>Campus Marketplace — Express API Demo</h1>
+  <p>This local evaluation page demonstrates <b>Node.js + Express</b>, JavaScript fetch, JSON file persistence and full CRUD. The marketplace itself uses Supabase Auth/PostgreSQL for production data. This demo is intentionally not included in Cloudflare deployment.</p>
+  <p>Live endpoints: <code>GET /api/feedback</code>, <code>POST /api/feedback</code>, <code>PATCH /api/feedback/:id</code>, <code>DELETE /api/feedback/:id</code>.</p>
+  <form id="feedback-form">
+    <label for="name">Name</label><input id="name" minlength="2" maxlength="80" required>
+    <label for="message">Feedback</label><textarea id="message" minlength="3" maxlength="1000" rows="3" required></textarea>
+    <button type="submit">Create feedback</button>
+  </form>
+  <p id="status" role="status" aria-live="polite"></p>
+  <h2>Saved records (from JSON file)</h2>
+  <button id="reload" type="button">Reload from API</button>
+  <ul id="records"></ul>
+  <a href="/">Back to Campus Marketplace</a>
+</main>
+<script>
+  const list = document.getElementById('records');
+  const status = document.getElementById('status');
+  const form = document.getElementById('feedback-form');
+  async function request(url, options) {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.error || `HTTP ${response.status}`);
+    }
+    if (response.status === 204) return null;
+    return response.json();
+  }
+  async function refresh() {
+    try {
+      const records = await request('/api/feedback');
+      list.replaceChildren();
+      if (!records.length) {
+        const li = document.createElement('li'); li.textContent = 'No records yet.'; list.append(li);
+      }
+      for (const entry of records) {
+        const li = document.createElement('li');
+        const header = document.createElement('strong'); header.textContent = entry.name;
+        const body = document.createElement('p'); body.textContent = entry.message;
+        const edit = document.createElement('button'); edit.type = 'button'; edit.textContent = 'Edit (PATCH)';
+        edit.addEventListener('click', async () => {
+          const name = prompt('Edit name:', entry.name); if (name === null) return;
+          const message = prompt('Edit feedback:', entry.message); if (message === null) return;
+          try { await request(`/api/feedback/${encodeURIComponent(entry.id)}`, {
+            method:'PATCH', headers:{'Content-Type':'application/json'}, body:JSON.stringify({name,message})
+          }); await refresh(); status.textContent = 'Record updated in JSON file.'; }
+          catch (error) { status.textContent = error.message; }
+        });
+        const remove = document.createElement('button'); remove.type = 'button'; remove.textContent = 'Delete'; remove.className = 'delete';
+        remove.addEventListener('click', async () => {
+          if (!confirm('Delete this feedback?')) return;
+          try { await request(`/api/feedback/${encodeURIComponent(entry.id)}`, {method:'DELETE'}); await refresh(); status.textContent = 'Record deleted.'; }
+          catch (error) { status.textContent = error.message; }
+        });
+        li.append(header,body,edit,remove); list.append(li);
+      }
+    } catch (error) { status.textContent = error.message; }
+  }
+  form.addEventListener('submit', async event => {
+    event.preventDefault(); if (!form.reportValidity()) return;
+    try {
+      await request('/api/feedback', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({
+        name:document.getElementById('name').value,
+        message:document.getElementById('message').value
+      }) });
+      form.reset(); await refresh(); status.textContent = 'Feedback saved to server/data/feedback.json.';
+    } catch (error) { status.textContent = error.message; }
+  });
+  document.getElementById('reload').addEventListener('click', refresh);
+  refresh();
+</script>
+</body>
+</html>

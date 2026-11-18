@@ -46,6 +46,11 @@
             : new URL(`${rootPrefix}index.html`, window.location.href).href;
     }
 
+    function getAuthCallbackUrl() {
+        // Build from the current origin, never from an old or hardcoded 127.0.0.1 port.
+        return new URL(`${rootPrefix}pages/login.html`, window.location.href).href;
+    }
+
     function showPasswordToggle(button) {
         const inputId = button.getAttribute("aria-controls");
         const input = inputId ? document.getElementById(inputId) : null;
@@ -80,13 +85,25 @@
                 email: normalizedEmail,
                 password,
                 options: {
-                    emailRedirectTo: new URL("./login.html", window.location.href).href,
+                    emailRedirectTo: getAuthCallbackUrl(),
                     data: {
                         full_name: String(fullName || "").trim(),
                         department: String(department || "").trim(),
                         academic_year: String(academicYear || "").trim()
                     }
                 }
+            });
+        },
+        async resendConfirmation(email) {
+            if (!client) throw new Error(authState.error || "Supabase is not configured.");
+            const normalizedEmail = String(email || "").trim().toLowerCase();
+            if (!isBMUEmail(normalizedEmail)) {
+                throw new Error("Enter your official @bmu.edu.in email address.");
+            }
+            return client.auth.resend({
+                type: "signup",
+                email: normalizedEmail,
+                options: { emailRedirectTo: getAuthCallbackUrl() }
             });
         },
         async signIn(email, password) {

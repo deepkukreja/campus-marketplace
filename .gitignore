@@ -12,3 +12,8 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Deployment output and Node packages
+dist/
+node_modules/
+server/data/*.tmp
